@@ -3,7 +3,7 @@ entries:
   Ikigai:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-06-05T09:41:22.104166-07:00"
+    created: "2024-06-28T16:50:24.52063-04:00"
     dependencies:
     - name: applications
       repository: file://charts/applications
@@ -12,27 +12,10 @@ entries:
       repository: file://charts/environment
       version: 0.1.0
     description: A Helm chart for Ikigai
-    digest: b9631425373a00c78942ce282d36df372513b558c2446d3f547bf17d600e6a45
+    digest: 5c0215a58ca1aa85f8cc72692c2a569cd4e42ec136e723f4ce8fe6afbe779e0c
     name: Ikigai
     type: application
     urls:
-    - ikigai-0.0.2.tgz
-    version: 0.0.2
-  - apiVersion: v2
-    appVersion: 1.0.0
-    created: "2024-06-05T09:41:22.084312-07:00"
-    dependencies:
-    - name: applications
-      repository: file://charts/applications
-      version: 0.1.0
-    - name: environment
-      repository: file://charts/environment
-      version: 0.1.0
-    description: A Helm chart for Ikigai
-    digest: 7270c5ca334bd49790ecbaf5f1a11206ec9e64c10eb2a3a8ef945acce1d82f09
-    name: Ikigai
-    type: application
-    urls:
-    - ikigai-0.0.1.tgz
-    version: 0.0.1
-generated: "2024-06-05T09:41:22.060874-07:00"
+    - Ikigai-1.0.0.tgz
+    version: 1.0.0
+generated: "2024-06-28T16:50:24.482819-04:00"

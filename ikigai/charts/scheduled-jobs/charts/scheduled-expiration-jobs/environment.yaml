@@ -1,0 +1,5 @@
+enable_remote_logging: true
+is_local: false
+resource_lifetime:
+  database: 2419200
+  dataset: 2419200

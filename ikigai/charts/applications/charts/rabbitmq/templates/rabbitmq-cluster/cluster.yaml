@@ -1,0 +1,27 @@
+apiVersion: rabbitmq.com/v1beta1
+kind: RabbitmqCluster
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.replicas }}
+  override:
+    statefulSet:
+      spec:
+        template:
+          spec:
+            containers:
+            - name: {{ .Chart.Name }}
+              volumeMounts:
+              - mountPath: {{ .Values.configMap.mountPath }}
+                subPath: {{ .Values.configMap.subPath }}
+                name: {{ .Values.volumes.name }}
+            volumes:
+            - name: {{ .Values.volumes.name }}
+              configMap:
+                name: {{ .Values.configMap.name }}
+  rabbitmq:
+    additionalConfig: |
+      load_definitions = /etc/rabbitmq/rabbitmq-definitions.json
+  service:
+    type: ClusterIP

@@ -1,0 +1,25 @@
+enable_remote_logging: true
+is_local: false
+use_staging_db: true
+user_trial:
+  trial_period: 0
+  apps:
+    tssa:
+      project_id: ""
+stripe:
+  webhook_signing_secret: ""
+  account: ""
+demo:
+  slack:
+    main_endpoint: ""
+    test_endpoint: ""
+  dev_email:
+    username: ""
+    password: ""
+    client_id: ""
+    client_secret: ""
+    tenant_id: ""
+  process_diagram_link: ""
+password_policy:
+  length: 20
+  

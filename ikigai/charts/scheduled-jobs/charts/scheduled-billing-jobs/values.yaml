@@ -1,0 +1,41 @@
+# Default values for scheduled pipeline run.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: services
+
+image:
+  jobs:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: scheduled-jobs-production
+    tag: scheduled-billing-0.2.0
+
+environmentVariables:
+  # - name: ACCESS_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: NETWORK_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: PROTO_LIBRARY_VERSION
+  #   value: 0.2.0
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+schedule: '0 */3 * * *'
+
+nodeSelector:
+  role: service
+
+tolerations: []
+
+affinity: {}
+
+clusterId:
+
+useKubeEnvironment:
+configMountPath: /etc/config

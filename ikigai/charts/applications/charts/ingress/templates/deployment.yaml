@@ -1,0 +1,44 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.nginx }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.nginx }}
+spec:
+  replicas: {{ .Values.replicas }}
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: {{ .Values.app.nginx }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.nginx }}
+    spec:
+      imagePullSecrets:
+      - name: harbor-docker-secret
+      containers:
+      - name: {{ .Values.app.nginx }}
+        image: {{ include "ingress.image.nginx.repository" . }}/{{ .Values.image.nginx.imageName }}:{{ include "ingress.image.nginx.tag" . }}
+        ports:
+        - name: microservice
+          containerPort: {{ .Values.containerPort.microservice }}
+        - name: dashhub
+          containerPort: {{ .Values.containerPort.dashhub }}
+        - name: jupyterhub
+          containerPort: {{ .Values.containerPort.jupyterhub }}
+        - name: superset
+          containerPort: {{ .Values.containerPort.superset }}
+        - name: websocket
+          containerPort: {{ .Values.containerPort.websocket }}
+        resources:
+          {{- toYaml .Values.resources.nginx | nindent 10 }}
+        volumeMounts:
+          - name: nginx-conf-file
+            mountPath: {{ .Values.configMountPath }}/nginx.conf
+            subPath: nginx.conf
+      volumes:
+        - name: nginx-conf-file
+          configMap:
+            name: {{ .Chart.Name }}-config-map

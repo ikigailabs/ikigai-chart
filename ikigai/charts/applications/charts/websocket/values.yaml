@@ -1,0 +1,89 @@
+# Default values for Ingress Nginx.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: websocket
+
+image:
+  pushpin:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: websocket-agent-development
+    tag: pushpin-0.0.2
+  reverseProxy:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: websocket-agent-development
+    tag: reverse-proxy-0.0.10
+  subscriber:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: websocket-agent-development
+    tag: subscriber-0.0.6
+
+app:
+  pushpin: pushpin
+  subscriber: subscriber
+  reverseProxy: reverse-proxy
+
+containerPort:
+  pushpinWebsocket: 7999
+  pushpinPublish: 5561
+  reverseProxy: 9999
+
+replicas:
+  pushpin: 3
+  reverseProxy: 2
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  loadBalancer:
+    port: 443
+  pushpinPublish:
+    port: 5561
+  reverseProxy:
+    port: 9999
+  cert:
+
+resources:
+  pushpin:
+    requests:
+      memory: "0.5Gi"
+      cpu: "0.5"
+    limits:
+      memory: "1Gi"
+      cpu: "1"
+  subscriber:
+    requests:
+      memory: "0.5Gi"
+      cpu: "0.5"
+    limits:
+      memory: "1Gi"
+      cpu: "1"
+  reverseProxy:
+    requests:
+      memory: "0.5Gi"
+      cpu: "0.5"
+    limits:
+      memory: "1Gi"
+      cpu: "1"
+
+autoscaling:
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
+
+nodeSelector:
+  role: service
+
+tolerations: []
+
+affinity: {}
+
+clusterId: ""

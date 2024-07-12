@@ -1,0 +1,33 @@
+enable_remote_logging: true
+is_local: false
+command:
+    ps aux
+namespace:
+    jupyterhub
+pod_name_prefix:
+    jupyter-ikigaiuser
+banned_processes:
+  - xmrig
+  - coin-hive
+  - NtMiner
+  - NiceHarshQuickMiner
+  - ferrite-core
+  - nanominer
+  - hellminer
+  - xmr-miner
+  - bitaxe
+  - c2pool
+  - NBMiner
+  - RainbowMiner
+  - gominer
+  - miningcore
+  - SilentCryptoMiner
+  - GMinerRelease
+  - MultiPoolMiner
+  - cpuminer
+  - pyminer
+  - deepMiner
+  - SilentXMRMiner
+  - SilentETHMiner
+  - SRBMiner-Multi
+  - astrominer

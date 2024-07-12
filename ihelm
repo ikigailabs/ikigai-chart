@@ -1,0 +1,39 @@
+#!/bin/bash
+#######################################
+# This script executes the following steps:
+# 1. If the helm operation is "install" or "upgrade":
+#      Run helm install/upgrade command with inline values from the ivalues.yaml file
+# 2. If the helm operation is not "install" or "upgrade":
+#      Run the helm command without any modifications
+# Globals:
+# Arguments:
+#######################################
+
+# Exit on error
+set -e
+
+printf '
+    d8b 888               888
+    Y8P 888               888
+        888               888
+    888 88888b.   .d88b.  888 88888b.d88b.
+    888 888 "88b d8P  Y8b 888 888 "888 "88b
+    888 888  888 88888888 888 888  888  888
+    888 888  888 Y8b.     888 888  888  888
+    888 888  888  "Y8888  888 888  888  888
+'
+
+CHART_NAME="ikigai"
+KEY_VALUE_FILEPATH="./$CHART_NAME/ivalues.yaml"
+PYTHON_HELPER_FILEPATH="./$CHART_NAME/ihelpers/set_inline_values.py"
+
+# Get helm operation
+OPERATION=$1
+
+# If operation is "install" or "upgrade", get the inline values
+if [[ "$OPERATION" == "install" ]] || [[ "$OPERATION" == "upgrade" ]]; then
+    INLINE_VALUES=$(python "$PYTHON_HELPER_FILEPATH" -f "$KEY_VALUE_FILEPATH")
+fi
+
+# Run helm command
+helm "$@" $INLINE_VALUES

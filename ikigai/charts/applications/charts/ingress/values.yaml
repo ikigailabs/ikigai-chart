@@ -1,0 +1,67 @@
+# Default values for Ingress Nginx.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: ingress
+
+image:
+  nginx:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: ingress-development
+    tag: 
+
+config:
+  apiEndpoint: test-api.ikigailabs.io
+
+app:
+  nginx: nginx
+
+containerPort:
+  microservice: 8000
+  dashhub: 8001
+  jupyterhub: 8002
+  superset: 8003
+  websocket: 8004
+
+replicas: 2
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  port:
+    microservice: 80
+    dashhub: 8001
+    jupyterhub: 8002
+    superset: 8003
+    websocket: 8004
+  cert: 
+
+resources:
+  requests:
+    memory: "0.5Gi"
+    cpu: "0.5"
+  limits:
+    memory: "1Gi"
+    cpu: "1"
+
+autoscaling:
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
+
+nodeSelector:
+  role: service
+
+tolerations: []
+
+affinity: {}
+
+clusterId: ""
+
+configMountPath: /etc/nginx

@@ -1,0 +1,8 @@
+enable_remote_logging: true
+is_local: false
+trial:
+  default_extension_days: 14
+password_policy:
+  length: 20
+front_end:
+  project_viewer_mode_template: ""

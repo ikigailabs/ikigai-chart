@@ -1,0 +1,60 @@
+use_staging_db: true
+enable_remote_logging: true
+is_local: false
+version: v1
+cluster:
+    common:
+        namespace: provisioner-common
+    proxy:
+        namespace: superset
+        label_selector: app=proxy
+    worker:
+        namespace: superset
+        label_selector: app=provisioner
+        deployment:
+            name: superset
+        containers:
+            superset: superset
+    superset:
+        namespace: superset
+        label_selector: app=superset
+    scale:
+        replica:
+            upper: 10
+            lower: 2
+        memory:
+            upper: 0.5
+            lower: 0.05
+        cpu:
+            upper: 0.5
+            lower: 0.05
+    lock:
+        key: superset_provisioner
+resource:
+    server:
+        host: http://superset-service.superset
+        port: 8088
+    user:
+        admin:
+            username: ikigaiadmin
+            password: superset123
+            user_id: 3
+        browse:
+            username: ikigai_browse_user
+        new_user:
+            role: Gamma
+            lastname: project_id
+            password: superset123
+    intermediate_database:
+        schema: ikigai-datasets-virtual
+metastore:
+    superset:
+        url: postgresql://SUPERSET_POSTGRES_USERNAME:SUPERSET_POSTGRES_PASSWORD@SUPERSET_POSTGRES_HOSTNAME:5432/SUPERSET_POSTGRES_DATABASE_NAME
+file_store: {}
+lock:
+    etcd_cluster:
+        name: etcd-cluster-customresource-client
+        namespace: internal-key-value-store
+        port: 2379
+proxy:
+    base_url: SUPERSET_HOSTNAME

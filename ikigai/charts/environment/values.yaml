@@ -1,0 +1,73 @@
+# Default values for environment.yaml files
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+config:
+  enabled: 
+
+credentials:
+  access_key_id: ""
+  secret_access_key: ""
+  default_region: ""
+  docker_auth: eyJhdXRocyI6eyJyZWdpc3RyeS5pa2lnYWlsYWJzLmlvL2lraWdhaSI6eyJ1c2VybmFtZSI6ImFkbWluIiwicGFzc3dvcmQiOiJJa2lnYWktZTE3NDc5IiwiYXV0aCI6IllXUnRhVzQ2U1d0cFoyRnBMV1V4TnpRM09RPT0ifX19
+namespaces:
+  superset: {}
+  dremio: {}
+  dashhub: {}
+  airbyte: {}
+  ingress: {}
+  websocket: {}
+  agents:
+    - access_environment
+    - cloud_environment
+    - component_environment
+    - data_environment
+    - dataop_environment
+    - error_environment
+    - facet_environment
+    - model_environment
+    - network_environment
+    - pipeline_environment
+    - service_environment
+    - tools_environment
+  executors:
+    - access_environment
+    - cloud_environment
+    - component_environment
+    - data_environment
+    - dataop_environment
+    - error_environment
+    - facet_environment
+    - model_environment
+    - network_environment
+    - pipeline_environment
+    - service_environment
+    - tools_environment
+  provisioners:
+    - access_environment
+    - cloud_environment
+    - component_environment
+    - data_environment
+    - dataop_environment
+    - error_environment
+    - facet_environment
+    - model_environment
+    - network_environment
+    - pipeline_environment
+    - service_environment
+    - tools_environment
+  services:
+    - access_environment
+    - cloud_environment
+    - component_environment
+    - data_environment
+    - dataop_environment
+    - error_environment
+    - facet_environment
+    - model_environment
+    - network_environment
+    - pipeline_environment
+    - service_environment
+    - tools_environment
+  jupyterhub:
+    - error_environment
+    - network_environment

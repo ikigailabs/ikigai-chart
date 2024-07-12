@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.pushpin }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.pushpin }}
+spec:
+  replicas: {{ .Values.replicas.pushpin }}
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: {{ .Values.app.pushpin }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.pushpin }}
+    spec:
+      containers:
+      - name: {{ .Values.app.pushpin }}
+        image: {{ include "websocket.image.pushpin.repository" . }}/{{ .Values.image.pushpin.imageName }}:{{ .Values.image.pushpin.tag }}
+        ports:
+        - containerPort: {{ .Values.containerPort.pushpinPublish }}
+        resources:
+          {{- toYaml .Values.resources.pushpin | nindent 10 }}
+      - name: {{ .Values.app.subscriber }}
+        image: {{ include "websocket.image.subscriber.repository" . }}/{{ .Values.image.subscriber.imageName }}:{{ .Values.image.subscriber.tag }}
+        resources:
+          {{- toYaml .Values.resources.subscriber | nindent 10 }}
+---
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.reverseProxy }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.reverseProxy }}
+spec:
+  replicas: {{ .Values.replicas.reverseProxy }}
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: {{ .Values.app.reverseProxy }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.reverseProxy }}
+    spec:
+      containers:
+      - name: {{ .Values.app.reverseProxy }}
+        image: {{ include "websocket.image.reverseProxy.repository" . }}/{{ .Values.image.reverseProxy.imageName }}:{{ .Values.image.reverseProxy.tag }}
+        ports:
+        - containerPort: {{ .Values.containerPort.reverseProxy }}
+        resources:
+          {{- toYaml .Values.resources.reverseProxy | nindent 10 }}

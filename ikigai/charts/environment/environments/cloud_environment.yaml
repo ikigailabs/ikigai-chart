@@ -1,0 +1,142 @@
+cloud_provider: aws
+api_gateway:
+  aws_api_gateway:
+    websocket:
+      endpoint: ""
+      stage: v1
+application_monitor:
+  timezone: EST
+  aws_cloudwatch:
+    stream: ""
+    log_groups:
+      user_activity: ""
+  azure_application_insights:
+    connection_string: ""
+    app_id: ""
+    client_id: ""
+    tenant: ""
+    log_groups:
+      user_activity: traces
+external_authenticator:
+  aws_cognito_external_authenticator:
+    domain_name: COGNITO_DOMAIN_NAME
+    webhook_endpoint: FRONTEND_HOSTNAME
+    identity_provider:
+      google: Google
+    scope:
+      google: ["openid", "email", "profile"]
+  azure_b2c_external_authenticator:
+    sso_policy: ""
+    webhook_endpoint: ""
+    sso_auth_endpoint:
+      google: ""
+identity_management:
+  aws_cognito:
+    user_pool_id: COGNITO_USER_POOL_ID
+    client_id: COGNITO_CLIENT_ID
+    region: REGION
+  azure_b2c:
+    ropc_policy: ""
+    tenant: ""
+    client_id: ""
+    client_secret: ""
+    signup_passcode: ""
+    forgot_password_passcode: ""
+    extension: ""
+    character_map: { "=": "!", "/": "_", "+": "#" }
+    inverse_character_map: { "!": "=", "_": "/", "#": "+" }
+    sender_address: ""
+    email_connection_string: ""
+key_value_store:
+  aws_dynamo_db:
+    tables:
+      remote_jobs: REMOTE_JOBS_TABLE_NAME
+      facet_templates: FACET_TEMPLATES_TABLE_NAME
+      remote_lock: REMOTE_LOCK_TABLE_NAME
+      websocket_connections: WEBSOCKET_TABLE_NAME
+  azure_cosmos_db:
+    account_name: ""
+    account_key: ""
+    tables:
+      remote_jobs: ""
+      facet_templates: ""
+      remote_lock: ""
+      websocket_connections: ""
+object_store:
+  aws_s3:
+    buckets:
+      cold_storage: COLD_STORAGE_BUCKET_NAME
+      connector: CONNECTOR_BUCKET_NAME
+      dataset: DATASET_BUCKET_NAME
+      model: MODEL_BUCKET_NAME
+      sample_dataset: SAMPLE_BUCKET_NAME
+      temp: TEMP_BUCKET_NAME
+      search: SEARCH_BUCKET_NAME
+  azure_blob_storage:
+    account_name: ""
+    account_key: ""
+    uri_prefix: ""
+    buckets:
+      cold_storage: ""
+      connector: ""
+      dataset: ""
+      model: ""
+      sample_dataset: ""
+      temp: ""
+      search: ""
+search:
+  aws_opensearch:
+    monitor_host: OPENSEARCH_MONITOR_HOSTNAME
+    component_logs_host: OPENSEARCH_COMPONENT_LOGS_HOSTNAME
+    region: REGION
+    port: 443
+    doc_type: fluentd
+    index_name: logstash-*
+    service: es
+  azure_elasticsearch:
+    resource_name: ""
+    component_logs_cloud_id: ""
+    component_logs_api_key: ""
+    monitor_cloud_id: ""
+    monitor_api_key: ""
+    index_name: ""
+dremio:
+  username: DREMIO_USERNAME
+  password: DREMIO_PASSWORD
+  host: DREMIO_HOSTNAME
+  port:
+    web: 80
+    odbc: 31010
+    flight: 32010
+  source: DREMIO_SOURCE
+  space: DREMIO_SPACE
+etcd:
+  host: etcd-cluster-customresource-client.internal-key-value-store
+  port: 2379
+  table: staging_database
+  ttl: 300
+openai:
+  api_key: ""
+  api_endpoint: ""
+  max_retries: ""
+  backoff_timer: ""
+  max_tokens: ""
+  temperature: ""
+  model: ""
+rabbitmq:
+  is_internal: true
+  aws_endpoint: 
+  queue_names:
+    browse: browse
+    component: component
+    dead_letter: dead-letter
+    pipeline: pipeline 
+rdbms:
+  endpoint: postgresql://PIPELINE_STAGING_POSTGRES_USERNAME:PIPELINE_STAGING_POSTGRES_PASSWORD@PIPELINE_STAGING_POSTGRES_HOSTNAME:5432/PIPELINE_STAGING_POSTGRES_DATABASE_NAME
+staging_path: /tmp/staging/common
+admin_email:
+  username: ""
+  password: ""
+  client_id: ""
+  client_secret: ""
+  tenant_id: ""

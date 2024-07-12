@@ -1,0 +1,27 @@
+# https://stackoverflow.com/questions/52422300/how-to-schedule-pods-restart
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: restart-{{ .Chart.Name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  concurrencyPolicy: Forbid
+  schedule: '0 */6 * * *'
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 10800
+      template:
+        spec:
+          serviceAccountName: {{ .Chart.Name }}-serviceaccount
+          restartPolicy: Never
+          containers:
+            - name: kubectl
+              image: {{ include "database-agent.image.service.repository" . }}/mirror-images-prod:bitnami-kubectl
+              command:
+                - 'kubectl'
+                - 'rollout'
+                - 'restart'
+                - deployment/{{ .Chart.Name }}
+          imagePullSecrets:
+          - name: harbor-docker-secret

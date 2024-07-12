@@ -1,0 +1,5 @@
+enable_remote_logging: true
+is_local: false
+use_staging_db: true
+queue_type: browse
+job_ttl: 1800

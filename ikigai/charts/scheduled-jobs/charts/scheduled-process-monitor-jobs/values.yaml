@@ -1,0 +1,39 @@
+# Default values for scheduled pipeline run.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: jupyterhub
+
+image:
+  jobs:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: scheduled-jobs-production
+    tag: scheduled-process_monitor-0.2.0
+
+environmentVariables:
+  # - name: NETWORK_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: PROTO_LIBRARY_VERSION
+  #   value: 0.2.0
+
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+schedule: '* * * * *'
+
+nodeSelector:
+  role: service
+
+tolerations: []
+
+affinity: {}
+
+clusterId:
+configMountPath: /etc/config
+useKubeEnvironment:

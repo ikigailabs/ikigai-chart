@@ -1,0 +1,97 @@
+# Default values for marketplace-service.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: services
+
+image:
+  service:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: marketplace-service-production
+    tag:
+  gateway:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: marketplace-gateway-production
+    tag:
+
+app:
+  service: marketplace-service
+  gateway: marketplace-gateway
+
+containerPort:
+  service: 18618
+  gateway: 37846
+
+replicas:
+  service: 5
+  gateway: 5
+
+environmentVariables:
+  # - name: ACCESS_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: CLOUD_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: COMPONENT_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: DATA_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: DATAOP_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: FACET_LIBRARY_VERSION
+  #   value: 0.2.2
+  # - name: NETWORK_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: PROTO_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: SERVICE_LIBRARY_VERSION
+  #   value: 0.2.0
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  service:
+    port: 18618
+  gateway:
+    port: 80
+
+resources:
+  service:
+    requests:
+      memory: "0.5Gi"
+      cpu: "0.5"
+    limits:
+      memory: "2Gi"
+      cpu: "1"
+  gateway:
+    requests:
+      memory: "0.5Gi"
+      cpu: "0.5"
+    limits:
+      memory: "2Gi"
+      cpu: "1"
+
+nodeSelector:
+  role: service
+
+lifeCycle:
+  preStopPeriod: 300
+
+terminationGracePeriodSeconds: 360
+
+tolerations: []
+
+affinity: {}
+
+clusterId:
+
+clusterSize:
+
+useKubeEnvironment:
+configMountPath: /etc/config

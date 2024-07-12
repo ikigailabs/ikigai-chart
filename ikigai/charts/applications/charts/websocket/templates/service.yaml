@@ -1,0 +1,74 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy-api
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.pushpin }}
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    {{ if .Values.service.cert }}
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: {{ .Values.service.cert }}
+    {{ else }}
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: {{ .Values.global.aws_load_balancer_cert }}
+    {{ end }}
+    service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy: ELBSecurityPolicy-TLS-1-1-2017-01
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: {{ .Values.service.loadBalancer.port | quote }}
+spec:
+  type: LoadBalancer
+  ports:
+    - port: {{ .Values.service.loadBalancer.port }}
+      targetPort: {{ .Values.containerPort.pushpinWebsocket }}
+  selector:
+    app: {{ .Values.app.pushpin }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy-service
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.pushpin }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.containerPort.pushpinWebsocket }}
+      targetPort: {{ .Values.containerPort.pushpinWebsocket }}
+  selector:
+    app: {{ .Values.app.pushpin }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.app.pushpin }}-service
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.pushpin }}
+spec:
+  ports:
+    - name: http
+      port: {{ .Values.service.pushpinPublish.port }}
+      protocol: TCP
+      targetPort: {{ .Values.containerPort.pushpinPublish }}
+  selector:
+    app: {{ .Values.app.pushpin }}
+  type: ClusterIP
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: {{ .Values.app.reverseProxy }}-service
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.reverseProxy }}
+spec:
+  ports:
+    - name: http
+      port: {{ .Values.service.reverseProxy.port }}
+      protocol: TCP
+      targetPort: {{ .Values.containerPort.reverseProxy }}
+  selector:
+    app: {{ .Values.app.reverseProxy }}
+  type: ClusterIP

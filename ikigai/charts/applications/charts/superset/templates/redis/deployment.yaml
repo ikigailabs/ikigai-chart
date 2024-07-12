@@ -1,0 +1,28 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.redis }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    name: {{ .Values.app.redis }}
+spec:
+  {{ if eq .Values.global.clusterSize "small"}}
+  replicas: 1
+  {{ else }}
+  replicas: {{ .Values.replicas.redis }}
+  {{ end }}
+  selector:
+    matchLabels:
+      app: {{ .Values.app.redis }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.redis }}
+    spec:
+      nodeSelector:
+        role: {{ .Values.nodeSelector.role }}
+      containers:
+        - image: {{ include "superset.image.redis.repository" . }}/{{ .Values.image.redis.imageName }}:{{ .Values.image.redis.tag }}
+          ports:
+            - containerPort: {{ .Values.containerPort.redis }}
+          name: {{ .Values.app.redis }}

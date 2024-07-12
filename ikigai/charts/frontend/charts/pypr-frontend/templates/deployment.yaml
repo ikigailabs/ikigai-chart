@@ -1,0 +1,31 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Chart.Name }}
+spec:
+  replicas: {{ .Values.replicas.service }}
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      nodeSelector:
+        role: {{ .Values.nodeSelector.role }}
+      containers:
+      - name: {{ .Chart.Name }}
+        image: {{ include "pypr-frontend.image.service.repository" . }}/{{ .Values.image.service.imageName }}:{{ include "pypr-frontend.image.service.tag" . }}
+      imagePullSecrets:
+      - name: harbor-docker-secret
+        env:
+        - name: CLUSTER_ID
+          value: {{ .Values.global.clusterId }}
+        ports:
+        - containerPort: {{ .Values.containerPort.service }}
+        resources:
+          {{- toYaml .Values.resources.service | nindent 10 }}

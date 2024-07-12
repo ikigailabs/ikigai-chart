@@ -1,0 +1,1293 @@
+tier_groups:
+  viewer_tiers: &viewer_tiers
+  - V0
+  free_tiers: &free_tiers
+  - F0
+  - F1
+  basic_tiers: &basic_tiers
+  - B0
+  - B1
+  enterprise_tiers: &enterprise_tiers
+  - E0
+  - E1
+  admin_tiers: &admin_tiers
+  - A0
+  all_tiers: &all_tiers
+  - ANONYMOUS
+  - V0
+  - F0
+  - F1
+  - B0
+  - B1
+  - E0
+  - E1
+  - A0
+  logged_in_tiers: &logged_in_tiers
+  - V0
+  - F0
+  - F1
+  - B0
+  - B1
+  - E0
+  - E1
+  - A0
+  paying_tiers: &paying_tiers
+  - B0
+  - B1
+  - E0
+  - E1
+api:
+  adminsupportticket:
+    admin_approve_support_ticket:
+      tier_access:
+      - *admin_tiers
+    admin_deny_support_ticket:
+      tier_access:
+      - *admin_tiers
+    admin_get_support_tickets:
+      tier_access:
+      - *admin_tiers
+  adminusermanagement:
+    admin_register:
+      tier_access:
+      - *admin_tiers
+    admin_change_password:
+      tier_access:
+      - *admin_tiers
+    admin_edit_tier:
+      tier_access:
+      - *admin_tiers
+    admin_edit_trial:
+      tier_access:
+      - *admin_tiers
+    admin_verify_user:
+      tier_access:
+      - *admin_tiers
+    admin_send_verification:
+      tier_access:
+      - *admin_tiers
+    admin_delete_user:
+      tier_access:
+      - *admin_tiers
+    admin_get_users:
+      tier_access:
+      - *admin_tiers
+  apikey:
+    create_api_key:
+      tier_access:
+      - *all_tiers
+    delete_api_key:
+      tier_access:
+      - *all_tiers
+    get_api_key:
+      tier_access:
+      - *all_tiers
+  alias:
+    encode_project_alias_identifier:
+      tier_access:
+      - *all_tiers
+    decode_project_alias_identifier:
+      tier_access:
+      - *all_tiers
+    is_alias_identifier:
+      tier_access:
+      - *all_tiers
+  annotation:
+    create_annotation:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_annotation:
+      tier_access:
+      - *all_tiers
+    delete_annotation:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_annotations_for_project:
+      tier_access:
+      - *all_tiers
+    edit_annotation:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    duplicate_annotations_for_component:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+  auth:
+    authenticate:
+      tier_access:
+      - *all_tiers
+    register:
+      tier_access:
+      - *all_tiers
+    send_verification:
+      tier_access:
+      - *all_tiers
+    initiate_forgot_password:
+      tier_access:
+      - *all_tiers
+    confirm_forgot_password:
+      tier_access:
+      - *all_tiers
+    change_password:
+      tier_access:
+      - *all_tiers
+    log_out:
+      tier_access:
+      - *all_tiers
+    get_auth_url:
+      tier_access:
+      - *all_tiers
+    authenticate_with_external_media:
+      tier_access:
+      - *all_tiers
+    store_user_information:
+      tier_access:
+      - *all_tiers
+    get_user_information:
+      tier_access:
+      - *all_tiers
+  billing:
+    initiate_purchase_plan:
+      tier_access:
+      - *all_tiers
+    finish_purchase_plan:
+      tier_access:
+      - *all_tiers
+    change_plan:
+      tier_access:
+      - *all_tiers
+    cancel_plan:
+      tier_access:
+      - *all_tiers
+    cancel_plan_by_stripe:
+      tier_access:
+      - *all_tiers
+    get_plan:
+      tier_access:
+      - *all_tiers
+    get_plans:
+      tier_access:
+      - *all_tiers
+    has_active_plan:
+      tier_access:
+      - *all_tiers
+    get_products:
+      tier_access:
+      - *all_tiers
+    reactivate_plan:
+      tier_access:
+      - *all_tiers
+    initiate_create_payment_method:
+      tier_access:
+      - *all_tiers
+    finish_create_payment_method:
+      tier_access:
+      - *all_tiers
+    initiate_edit_payment_method:
+      tier_access:
+      - *all_tiers
+    finish_edit_payment_method:
+      tier_access:
+      - *all_tiers
+    delete_payment_method:
+      tier_access:
+      - *all_tiers
+    get_payment_method:
+      tier_access:
+      - *all_tiers
+    get_payment_history:
+      tier_access:
+      - *all_tiers
+  browse:
+    browse_facet:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    save_facet:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    finish_browse_facet:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    browse_arrow:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    finish_browse_arrow:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    peek_arrow:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    browse_dataset:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_dataset_header:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    finish_browse_dataset:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    browse_header:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    browse_chart:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    finish_browse_chart:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    browse_connector:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    finish_browse_connector:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    browse_dashboard:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    finish_browse_dashboard:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+  certificate:
+    create_certificate:
+      tier_access:
+      - *admin_tiers
+    get_certificate:
+      tier_access:
+      - *all_tiers
+    get_certificates_for_user:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+  chart:
+    create_chart:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_chart:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_chart:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    duplicate_chart:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_chart:
+      tier_access:
+      - *all_tiers
+    get_charts_for_project:
+      tier_access:
+      - *all_tiers
+  command:
+    create_facet_template:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_facet_template:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_suggested_facets:
+      tier_access:
+      - *all_tiers
+    get_all_suggested_facets:
+      tier_access:
+      - *all_tiers
+    get_suggested_facet:
+      tier_access:
+      - *all_tiers
+  connector:
+    create_connector:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_connector:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_connector:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_connector:
+      tier_access:
+      - *all_tiers
+    get_connectors_for_project:
+      tier_access:
+      - *all_tiers
+    activate_connector:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    finish_activate_connector:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    pull_connector:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    is_connector_pulling:
+      tier_access:
+      - *all_tiers
+    get_table_names_for_connector:
+      tier_access:
+      - *all_tiers
+    create_connector_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_connector_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_connector_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_connector_directory:
+      tier_access:
+      - *all_tiers
+    get_connector_directories_for_project:
+      tier_access:
+      - *all_tiers
+    get_connector_download_url:
+      tier_access:
+      - *all_tiers
+    get_connector_websocket_url:
+      tier_access:
+      - *all_tiers
+  coupon:
+    create_coupon:
+      tier_access:
+      - *admin_tiers
+    activate_coupon:
+      tier_access:
+      - *admin_tiers
+    deactivate_coupon:
+      tier_access:
+      - *admin_tiers
+    delete_coupon:
+      tier_access:
+      - *admin_tiers
+    apply_coupon:
+      tier_access:
+      - *all_tiers
+    get_coupon:
+      tier_access:
+      - *all_tiers
+    get_coupons_for_user:
+      tier_access:
+      - *all_tiers
+    get_coupon_options:
+      tier_access:
+      - *admin_tiers
+  customconnector:
+    create_custom_connector:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_custom_connector:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_custom_connector:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_custom_connector:
+      tier_access:
+      - *all_tiers
+    get_custom_connectors_for_user:
+      tier_access:
+      - *all_tiers
+    share_custom_connector:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    duplicate_custom_connector:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_custom_connector_access_level:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_custom_connector_access_level_options:
+      tier_access:
+      - *all_tiers
+    publish_custom_connector:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    unpublish_custom_connector:
+      tier_access:
+      - *all_tiers
+    purchase_custom_connector:
+      tier_access:
+      - *all_tiers
+    purchase_origin_custom_connector:
+      tier_access:
+      - *all_tiers
+    push_update_for_custom_connector:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    pull_update_for_custom_connector:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_custom_connector_update_info:
+      tier_access:
+      - *all_tiers
+    get_custom_connector_arguments:
+      tier_access:
+      - *all_tiers
+  customfacet:
+    create_custom_facet:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_custom_facet:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_custom_facet:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_custom_facet:
+      tier_access:
+      - *all_tiers
+    get_custom_facets_for_user:
+      tier_access:
+      - *all_tiers
+    share_custom_facet:
+      tier_access:
+      - *all_tiers
+    duplicate_custom_facet:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_custom_facet_access_level:
+      tier_access:
+      - *all_tiers
+    get_custom_facet_access_level_options:
+      tier_access:
+      - *all_tiers
+    publish_custom_facet:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    unpublish_custom_facet:
+      tier_access:
+      - *all_tiers
+    purchase_custom_facet:
+      tier_access:
+      - *all_tiers
+    purchase_origin_custom_facet:
+      tier_access:
+      - *all_tiers
+    push_update_for_custom_facet:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    pull_update_for_custom_facet:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_custom_facet_update_info:
+      tier_access:
+      - *all_tiers
+    get_custom_facet_arguments:
+      tier_access:
+      - *all_tiers
+  dashboard:
+    create_dashboard:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_dashboard:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_dashboard:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    duplicate_dashboard:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_dashboard:
+      tier_access:
+      - *all_tiers
+    get_dashboards_for_project:
+      tier_access:
+      - *all_tiers
+    create_dashboard_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_dashboard_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_dashboard_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_dashboard_directory:
+      tier_access:
+      - *all_tiers
+    get_dashboard_directories_for_project:
+      tier_access:
+      - *all_tiers
+  database:
+    create_database:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_database:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_database:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_database:
+      tier_access:
+      - *all_tiers
+    get_databases_for_project:
+      tier_access:
+      - *all_tiers
+    get_database_download_url:
+      tier_access:
+      - *all_tiers
+    create_database_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_database_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_database_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_database_directory:
+      tier_access:
+      - *all_tiers
+    get_database_directories_for_project:
+      tier_access:
+      - *all_tiers
+  dataset:
+    create_dataset:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_dataset:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_dataset:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_dataset:
+      tier_access:
+      - *all_tiers
+    get_datasets_for_project:
+      tier_access:
+      - *all_tiers
+    get_dataset_sheet_names:
+      tier_access:
+      - *all_tiers
+    get_dataset_upload_url:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    verify_dataset_upload:
+      tier_access:
+      - *all_tiers
+    confirm_dataset_upload:
+      tier_access:
+      - *all_tiers
+    get_dataset_multipart_upload_urls:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    complete_dataset_multipart_upload:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_dataset_download_url:
+      tier_access:
+      - *all_tiers
+    get_dataset_content_endpoint:
+      tier_access:
+      - *all_tiers
+    edit_dataset_content:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_dataset_content_size:
+      tier_access:
+      - *all_tiers
+    get_dataset_operation_types:
+      tier_access:
+      - *all_tiers
+    create_dataset_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_dataset_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_dataset_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_dataset_directory:
+      tier_access:
+      - *all_tiers
+    get_dataset_directories_for_project:
+      tier_access:
+      - *all_tiers
+    get_dataset_log:
+      tier_access:
+      - *all_tiers
+    get_dataset_websocket_url:
+      tier_access:
+      - *all_tiers
+  demo:
+    create_demo:
+      tier_access:
+      - *all_tiers
+    get_demo:
+      tier_access:
+      - *all_tiers
+  doc:
+    get_facet_specs:
+      tier_access:
+      - *all_tiers
+    get_pipeline_specs:
+      tier_access:
+      - *all_tiers
+    get_model_specs:
+      tier_access:
+      - *all_tiers
+    get_facet_documentations:
+      tier_access:
+      - *all_tiers
+    get_facet_documentation:
+      tier_access:
+      - *all_tiers
+    get_facet_documentation_url:
+      tier_access:
+      - *all_tiers
+    get_model_documentations:
+      tier_access:
+      - *all_tiers
+    get_model_documentation:
+      tier_access:
+      - *all_tiers
+    get_model_documentation_url:
+      tier_access:
+      - *all_tiers
+    get_clean_dataset_options:
+      tier_access:
+      - *all_tiers
+    get_connector_specs:
+      tier_access:
+      - *all_tiers
+    get_supported_data_types:
+      tier_access:
+      - *all_tiers
+    get_supported_custom_facet_argument_types:
+      tier_access:
+      - *all_tiers
+    get_supported_pipeline_argument_types:
+      tier_access:
+      - *all_tiers
+    get_model_types:
+      tier_access:
+      - *all_tiers
+    get_sub_model_types:
+      tier_access:
+      - *all_tiers
+    get_sub_model_metrics:
+      tier_access:
+      - *all_tiers
+    get_sub_model_parameters:
+      tier_access:
+      - *all_tiers
+    get_sub_model_hyperparameters:
+      tier_access:
+      - *all_tiers
+    get_model_groups:
+      tier_access:
+      - *all_tiers
+  errorhandling:
+    parse_dremio_error:
+      tier_access:
+      - *all_tiers
+  excelconverter:
+    create_excel_converter:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    confirm_excel_converter_creation:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+  externalresource:
+    create_external_resource:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_external_resource:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_external_resource:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_external_resource:
+      tier_access:
+      - *all_tiers
+    get_external_resources_for_project:
+      tier_access:
+      - *all_tiers
+    create_external_resource_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_external_resource_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_external_resource_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_external_resource_directory:
+      tier_access:
+      - *all_tiers
+    get_external_resource_directories_for_project:
+      tier_access:
+      - *all_tiers
+  filesystem:
+    get_file:
+      tier_access:
+      - *all_tiers
+    get_file_directory:
+      tier_access:
+      - *all_tiers
+    get_files_for_project:
+      tier_access:
+      - *all_tiers
+    get_file_directories_for_project:
+      tier_access:
+      - *all_tiers
+  grader:
+    create_grader:
+      tier_access:
+      - *all_tiers
+    edit_grader:
+      tier_access:
+      - *all_tiers
+    delete_grader:
+      tier_access:
+      - *all_tiers
+    get_grader:
+      tier_access:
+      - *all_tiers
+    get_graders_for_user:
+      tier_access:
+      - *all_tiers
+    confirm_grader_creation:
+      tier_access:
+      - *all_tiers
+    get_grader_url:
+      tier_access:
+      - *all_tiers
+    check_grader_dataset:
+      tier_access:
+      - *all_tiers
+    get_grader_types:
+      tier_access:
+      - *all_tiers
+    get_grader_sample_dataset_url:
+      tier_access:
+      - *all_tiers
+    get_grader_description:
+      tier_access:
+      - *all_tiers
+  marketplacelisting:
+    search_marketplace_listings:
+      tier_access:
+      - *all_tiers
+    get_marketplace_listing:
+      tier_access:
+      - *all_tiers
+    get_marketplace_listings_for_user:
+      tier_access:
+      - *all_tiers
+  model:
+    create_model:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_model:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_model:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_model:
+      tier_access:
+      - *all_tiers
+    get_models_for_project:
+      tier_access:
+      - *all_tiers
+    edit_model_version:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_model_version:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_model_version:
+      tier_access:
+      - *all_tiers
+    get_model_versions:
+      tier_access:
+      - *all_tiers
+    create_model_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_model_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_model_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_model_directory:
+      tier_access:
+      - *all_tiers
+    get_model_directories_for_project:
+      tier_access:
+      - *all_tiers
+    get_column_mapping:
+      tier_access:
+      - *all_tiers
+    edit_column_mapping:
+      tier_access:
+      - *all_tiers
+    get_candidate_matches:
+      tier_access:
+      - *all_tiers
+    edit_candidate_matches:
+      tier_access:
+      - *all_tiers
+  monitor:
+    get_supported_api_names_for_monitor:
+      tier_access:
+      - *all_tiers
+    get_api_count_statistics:
+      tier_access:
+      - *all_tiers
+    get_connector_size_statistics:
+      tier_access:
+      - *all_tiers
+    get_dataset_size_statistics:
+      tier_access:
+      - *all_tiers
+    get_pipeline_volume_statistics:
+      tier_access:
+      - *all_tiers
+  pipeline:
+    create_pipeline:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_pipeline:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_pipeline:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_pipelines:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    run_pipeline:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    run_pipeline_with_url:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    stop_pipeline:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_pipeline:
+      tier_access:
+      - *all_tiers
+    get_pipelines_for_project:
+      tier_access:
+      - *all_tiers
+    get_pipeline_log:
+      tier_access:
+      - *all_tiers
+    get_pipeline_volume:
+      tier_access:
+      - *all_tiers
+    is_pipeline_running:
+      tier_access:
+      - *all_tiers
+    create_pipeline_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_pipeline_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_pipeline_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_pipeline_directory:
+      tier_access:
+      - *all_tiers
+    get_pipeline_directories_for_project:
+      tier_access:
+      - *all_tiers
+    get_default_script_for_facet:
+      tier_access:
+      - *all_tiers
+    add_next_pipeline:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    remove_next_pipeline:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_next_pipelines:
+      tier_access:
+      - *all_tiers
+    get_valid_next_pipelines:
+      tier_access:
+      - *all_tiers
+    get_pipeline_websocket_url:
+      tier_access:
+      - *all_tiers
+    get_component_ownerships_for_pipeline:
+      tier_access:
+      - *all_tiers
+    get_component_update_info_for_pipeline:
+      tier_access:
+      - *all_tiers
+    generate_rootkit_token:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    generate_script_for_facet:
+      tier_access:
+      - *all_tiers
+  processdiagram:
+    store_process_diagram:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_process_diagram:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_process_diagram:
+      tier_access:
+      - *all_tiers
+    generate_process_diagram_identifier:
+      tier_access:
+      - *all_tiers
+  project:
+    create_project:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_project:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_project:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    confirm_project_deletion:
+      tier_access:
+      - *all_tiers
+    share_project:
+      tier_access:
+      - *all_tiers
+    unshare_project:
+      tier_access:
+      - *all_tiers
+    transfer_project_ownership:
+      tier_access:
+      - *all_tiers
+    create_tutorial_project:
+      tier_access:
+      - *all_tiers
+    checkpoint_for_project:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    duplicate_project:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    confirm_project_duplication:
+      tier_access:
+      - *all_tiers
+    get_components_for_project:
+      tier_access:
+      - *all_tiers
+    get_project:
+      tier_access:
+      - *all_tiers
+    get_projects_for_user:
+      tier_access:
+      - *all_tiers
+    get_template_project_options:
+      tier_access:
+      - *all_tiers
+    duplicate_template_project:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_shareable_project_url:
+      tier_access:
+      - *all_tiers
+    create_project_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    edit_project_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    delete_project_directory:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    get_project_directory:
+      tier_access:
+      - *all_tiers
+    get_project_directories_for_user:
+      tier_access:
+      - *all_tiers
+    get_project_websocket_url:
+      tier_access:
+      - *all_tiers
+    transfer_account_resources:
+      tier_access:
+      - *all_tiers
+  schedule:
+    get_upcoming_schedule_for_user:
+      tier_access:
+      - *all_tiers
+    get_upcoming_schedule_for_project:
+      tier_access:
+      - *all_tiers
+    get_upcoming_schedule_for_pipeline:
+      tier_access:
+      - *all_tiers
+    get_past_schedule_for_user:
+      tier_access:
+      - *all_tiers
+    get_past_schedule_for_project:
+      tier_access:
+      - *all_tiers
+    get_past_schedule_for_pipeline:
+      tier_access:
+      - *all_tiers
+  search:
+    search_facets:
+      tier_access:
+      - *all_tiers
+  supportticket:
+    create_support_ticket:
+      tier_access:
+        - *all_tiers
+  url:
+    generate_run_pipeline_url:
+      tier_access:
+      - *free_tiers
+      - *paying_tiers
+      - *admin_tiers
+    generate_view_dashboard_url:
+      tier_access:
+      - *all_tiers
+  websocket:
+    connect_to_websocket:
+      tier_access:
+      - *all_tiers
+    disconnect_from_websocket:
+      tier_access:
+      - *all_tiers
+andrew:
+  opio: yes

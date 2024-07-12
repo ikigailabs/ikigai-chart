@@ -1,0 +1,69 @@
+# Default values for websocket-agent.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: agents
+
+image:
+  service:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: websocket-agent-production
+    tag: ""
+
+app:
+  service: websocket-agent
+
+containerPort:
+  service: 55075
+
+replicas:
+  service: 3
+
+environmentVariables:
+  # - name: CLOUD_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: NETWORK_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: PROTO_LIBRARY_VERSION
+  #   value: 0.2.0
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  service:
+    port: 55075
+
+resources:
+  service:
+    requests:
+      memory: "512Mi"
+      cpu: "0.5"
+    limits:
+      memory: "1Gi"
+      cpu: "1"
+
+nodeSelector:
+  role: service
+
+lifeCycle:
+  preStopPeriod: 300
+
+terminationGracePeriodSeconds: 360
+
+tolerations: []
+
+affinity: {}
+
+clusterId:
+
+clusterSize:
+
+useKubeEnvironment:
+
+configMountPath: /etc/config

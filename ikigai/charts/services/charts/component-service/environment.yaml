@@ -1,0 +1,39 @@
+enable_remote_logging: true
+enable_tier_access_control: false
+is_local: false
+use_staging_db: true
+browse_size: 2000
+dashboard_table_byte_size_limit: 5000000
+dataset_download_size_limit: 3000000000
+url:
+  pypr: API_HOSTNAME
+  base: FRONTEND_HOSTNAME
+graders:
+  object_store_subpath: ""
+  supply_chain:
+    project_id: ""
+    dashboard_id: ""
+    dataset_id: ""
+    pipeline_id: ""
+    sample_dataset: ""
+  demand_forecasting:
+    project_id: ""
+    dashboard_id: ""
+    dataset_id: ""
+    pipeline_id: ""
+    sample_dataset: ""
+  excel:
+    project_id: ""
+    dashboard_id: ""
+    dataset_id: ""
+    pipeline_id: ""
+    sample_dataset: ""
+session:
+  length: 600
+template:
+  admin: ""
+  tutorial_project_id: ""
+  template_project_directory_id: ""
+webhook_secret:
+  fivetran: ""
+multi_select_item_limit: 10

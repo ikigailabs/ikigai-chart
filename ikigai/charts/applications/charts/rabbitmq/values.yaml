@@ -1,0 +1,14 @@
+# Default values for RabbitMQ.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: rabbitmq-system
+
+replicas: 1
+
+volumes:
+  name: definitions
+
+configMap:
+  name: rabbitmq-definitions
+  mountPath: /etc/rabbitmq/rabbitmq-definitions.json
+  subPath: rabbitmq-definitions.json

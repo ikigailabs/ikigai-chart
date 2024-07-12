@@ -1,0 +1,5 @@
+enable_remote_logging: true
+is_local: false
+queue_type: dead_letter
+slack:
+  webhook_endpoint: ""

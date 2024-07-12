@@ -1,0 +1,39 @@
+enable_remote_logging: true
+is_local: false
+use_staging_db: false
+version: v1
+cluster:
+  jupyterhub:
+    worker:
+      namespace: jupyterhub
+      label_selector: component=singleuser-server
+  lock:
+    key: dash_provisioner
+resource:
+  jupyterhub:
+    server:
+      host: http://hub.jupyterhub
+      port: 8081
+    user:
+      admin:
+        username: ikigaiadmin
+        password: jupyter123
+      user:
+        username: ikigaiuser
+        password: jupyter123
+    token: secret-token
+  dashhub:
+    server:
+      host: http://hub.dashhub
+      port: 9000
+file_store: {}
+lock:
+  etcd_cluster:
+    name: etcd-cluster-customresource-client
+    namespace: internal-key-value-store
+    port: 2379
+proxy:
+  jupyterhub:
+    base_url: JUPYTER_HOSTNAME
+  dashhub:
+    base_url: DASHHUB_HOSTNAME

@@ -1,0 +1,101 @@
+# Default values for component-service.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: services
+
+image:
+  service:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: component-service-production
+    tag:
+  gateway:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: component-gateway-production
+    tag:
+
+app:
+  service: component-service
+  gateway: component-gateway
+
+containerPort:
+  service: 8810
+  gateway: 43896
+
+replicas:
+  service: 9
+  gateway: 9
+  
+
+environmentVariables:
+  # - name: ACCESS_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: CLOUD_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: COMPONENT_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: DATA_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: DATAOP_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: FACET_LIBRARY_VERSION
+  #   value: 0.2.2
+  # - name: MODEL_LIBRARY_VERSION
+  #   value: 0.2.6
+  # - name: NETWORK_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: PIPELINE_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: PROTO_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: SERVICE_LIBRARY_VERSION
+  #   value: 0.2.0
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  service:
+    port: 8810
+  gateway:
+    port: 80
+
+resources:
+  service:
+    requests:
+      memory: "0.5Gi"
+      cpu: "0.5"
+    limits:
+      memory: "4Gi"
+      cpu: "2"
+  gateway:
+    requests:
+      memory: "0.5Gi"
+      cpu: "0.5"
+    limits:
+      memory: "2Gi"
+      cpu: "1"
+
+nodeSelector:
+  role: service
+
+lifeCycle:
+  preStopPeriod: 300
+
+terminationGracePeriodSeconds: 360
+
+tolerations: []
+
+affinity: {}
+
+clusterId:
+
+clusterSize:
+useKubeEnvironment:
+configMountPath: /etc/config

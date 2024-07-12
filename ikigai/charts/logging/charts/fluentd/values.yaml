@@ -1,0 +1,52 @@
+# Default values for fluentd.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: services
+
+image:
+  fluentd:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: fluentd-production
+    tag: 
+
+replicas:
+  service: 2
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+env:
+  aws_access_key_id: AWS_SECRET_ACCESS_KEY
+  aws_secret_access_key: AWS_ACCESS_KEY
+  aws_monitor_opensearch_url: OPENSEARCH_MONITOR_HOSTNAME
+  aws_component_logs_opensearch_url: OPENSEARCH_COMPONENT_LOGS_HOSTNAME
+  aws_region: REGION
+  logstash_prefix: "logstash"
+
+service:
+  fluentd:
+    port: 24224
+
+resources:
+  service:
+    requests:
+      memory: "200Mi"
+      cpu: "100m"
+
+autoscaling:
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
+
+nodeSelector:
+  role: service
+
+tolerations: []
+
+affinity: {}

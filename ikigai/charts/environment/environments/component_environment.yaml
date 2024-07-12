@@ -1,0 +1,9 @@
+lock_table_name:
+  clean_up_block: clean_up_block
+  dataset: dataset_lock
+  facet: facet_lock
+  pipeline: pypr_locks
+  project: project_lock
+  scheduler: scheduler_locks
+lock_ttl:
+  pipeline: 7200

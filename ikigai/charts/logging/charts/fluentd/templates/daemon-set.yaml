@@ -1,0 +1,56 @@
+apiVersion: apps/v1
+kind: DaemonSet
+metadata:
+  labels:
+    app: {{ .Chart.Name }}
+    k8s-addon: fluentd-elasticsearch.addons.k8s.io
+  name: {{ .Chart.Name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+      name: {{ .Chart.Name }}
+      namespace: {{ .Values.namespace }}
+    spec:
+      serviceAccountName: {{ .Chart.Name }}-serviceaccount
+      nodeSelector:
+        role: {{ .Values.nodeSelector.role }}
+      containers:
+        - image: {{ include "fluentd.image.fluentd.repository" . }}/{{ .Values.image.fluentd.imageName }}:{{ include "fluentd.image.fluentd.tag" . }}
+          imagePullPolicy: {{ .Values.image.fluentd.pullPolicy }}
+          name: {{ .Chart.Name }}
+          resources:
+            {{- toYaml .Values.resources.service | nindent 12 }}
+          volumeMounts:
+            - mountPath: /var/log
+              name: varlog
+            - mountPath: /var/lib/docker/containers
+              name: varlibdockercontainers
+              readOnly: true
+          env:
+            - name: AWS_ACCESS_KEY_ID
+              value: {{ .Values.env.aws_access_key_id }}
+            - name: AWS_SECRET_ACCESS_KEY
+              value: {{ .Values.env.aws_secret_access_key }}
+            - name: AWS_ELASTICSEARCH_URL
+              value: {{ .Values.env.aws_elasticsearch_url }}
+            - name: AWS_MONITOR_OPENSEARCH_URL
+              value: {{ .Values.env.aws_monitor_opensearch_url }}
+            - name: AWS_COMPONENT_LOGS_OPENSEARCH_URL
+              value: {{ .Values.env.aws_component_logs_opensearch_url }}
+            - name: AWS_REGION
+              value: {{ .Values.env.aws_region }}
+            - name: LOGSTASH_PREFIX
+              value: {{ .Values.env.logstash_prefix }}
+      volumes:
+        - hostPath:
+            path: /var/log
+          name: varlog
+        - hostPath:
+            path: /var/lib/docker/containers
+          name: varlibdockercontainers

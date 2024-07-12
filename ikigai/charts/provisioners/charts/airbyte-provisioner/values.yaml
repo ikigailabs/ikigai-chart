@@ -1,0 +1,67 @@
+# Default values for airbyte-provisioner.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: provisioners
+
+image:
+  service:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: airbyte-provisioner-production
+    tag: 
+
+app:
+  service: airbyte-provisioner
+
+containerPort:
+  service: 54719
+
+replicas:
+  service: 5
+
+environmentVariables:
+  # - name: NETWORK_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: PROTO_LIBRARY_VERSION
+  #   value: 0.2.0
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  service:
+    port: 54719
+  # cert: fill in if necessary
+
+resources:
+  service:
+    requests:
+      memory: "512Mi"
+      cpu: "0.5"
+    limits:
+      memory: "2Gi"
+      cpu: "2"
+
+nodeSelector:
+  role: service
+
+lifeCycle:
+  preStopPeriod: 300
+
+terminationGracePeriodSeconds: 360
+
+tolerations: []
+
+affinity: {}
+
+clusterId:
+
+clusterSize:
+
+useKubeEnvironment:
+configMountPath: /etc/config

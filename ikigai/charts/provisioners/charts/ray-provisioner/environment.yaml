@@ -1,0 +1,35 @@
+enable_remote_logging: true
+use_staging_db: true
+is_local: false
+version: v1
+cluster: {}
+resource:
+    server: {}
+    anyscale:
+        api_token: ""
+        build_id: ""
+        upload_bucket: anyscale-bucket-prod
+        working_directory_prefix: /tmp/anyscale_working_directories
+        compute_config_id: ""
+        project_id: ""
+        timeout: 120
+        max_retries: 3
+        entrypoint_file_name: entrypoint.py
+    kuberay:
+        namespace: kuberay
+        group: ray.io
+        version: v1
+        plural: rayclusters
+        kind: RayCluster
+        default_port: 8265
+        timeout: 120
+metastore:
+    provisioner:
+        url: postgresql://SERVICE_METADATA_POSTGRES_USERNAME:SERVICE_METADATA_POSTGRES_PASSWORD@SERVICE_METADATA_POSTGRES_HOSTNAME/SERVICE_METADATA_POSTGRES_DATABASE_NAME
+file_store: {}
+lock:
+    etcd_cluster:
+        name: prov-etcd-cluster-customresource
+        namespace: provisioner-common
+        port: 2379
+proxy: {}

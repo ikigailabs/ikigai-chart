@@ -1,0 +1,13 @@
+apiVersion: monitoring.coreos.com/v1
+kind: PodMonitor
+metadata:
+  name: dremio-pod-monitor
+  namespace: dremio
+spec:
+  selector:
+    matchLabels:
+      role: dremio-cluster-pod
+  podMetricsEndpoints:
+    - path: /metrics
+      interval: 10s
+      port: prometheus

@@ -1,0 +1,95 @@
+# Default values for Dashhub.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: dashhub
+
+env:
+  dashhub_location: kubernetes
+  dashboard_workdir: /usr/dashhub/dashhub
+  hub_port: 9000
+  proxy_port: 8080
+  dashboard_port: 8050
+  dashboard_suppress_exceptions: "TRUE"
+  create_when_not_found: "TRUE"
+  node_subdomain: node-proxy
+  virtual_env_directory: /tmp/default
+  log_level: "DEBUG"
+
+database:
+  db_type: postgres
+  db_host: 
+  db_port: 5432
+  db_name: 
+  db_username: 
+  db_password: 
+
+image:
+  hub:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: dashhub-production
+    tag: hub-0.1.6
+  proxy:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: dashhub-production
+    tag: proxy-0.1.3
+  node:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: dashhub-production
+    tag: node-0.1.5
+  culler:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: dashhub-production
+    tag: culler-0.1.4
+
+app:
+  hub: dashhub-hub
+  proxy: dashhub-proxy
+  node: dashhub-node
+  culler: dashhub-culler
+
+replicas:
+  hub: 3
+  proxy: 3
+
+serviceAccount:
+  hub: dashhub-hub
+  culler: dashhub-culler
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+load_balancer:
+  port: 443
+  cert:
+
+resources:
+  hub:
+    requests:
+      memory: "512Mi"
+      cpu: "0.5"
+    limits:
+      memory: "2Gi"
+      cpu: "2"
+  proxy:
+    requests:
+      memory: "512Mi"
+      cpu: "0.5"
+    limits:
+      memory: "2Gi"
+      cpu: "2"
+
+nodeSelector:
+  role: service
+
+tolerations: []
+
+affinity: {}

@@ -1,0 +1,30 @@
+enable_remote_logging: True
+is_local: False
+use_staging_db: False
+version: v1
+cluster:
+    worker:
+        namespace: jupyterhub
+        label_selector: component=singleuser-server
+    lock:
+        key: jupyter_provisioner
+resource:
+    server:
+        host: http://hub.jupyterhub
+        port: 8081
+    user:
+        admin:
+            username: ikigaiadmin
+            password: jupyter123
+        user:
+            username: ikigaiuser
+            password: jupyter123
+    token: secret-token
+file_store: {}
+lock:
+    etcd_cluster:
+        name: etcd-cluster-customresource-client
+        namespace: internal-key-value-store
+        port: 2379
+proxy:
+    base_url: JUPYTER_HOSTNAME

@@ -1,0 +1,2 @@
+cloud_watch:
+  stream: CLOUD_WATCH_STREAM

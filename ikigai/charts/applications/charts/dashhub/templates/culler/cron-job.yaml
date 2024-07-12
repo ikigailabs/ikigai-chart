@@ -1,0 +1,56 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: culler
+  namespace: {{ .Values.namespace }}
+spec:
+  concurrencyPolicy: Allow
+  schedule: '* * * * *'
+  successfulJobsHistoryLimit: 1
+  failedJobsHistoryLimit: 1
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 600
+      template:
+        spec:
+          serviceAccountName: {{ .Values.serviceAccount.culler }}
+          restartPolicy: Never
+          nodeSelector:
+            role: {{ .Values.nodeSelector.role }}
+          containers:
+            - name: culler
+              image: {{ include "dashhub.image.culler.repository" . }}/{{ .Values.image.culler.imageName }}:{{ .Values.image.culler.tag }}
+              env:
+                - name: DASHHUB_LOCATION
+                  value: {{ .Values.env.dashhub_location }}
+                - name: DASHHUB_NAMESPACE
+                  value: {{ .Values.namespace }}
+                - name: DASHBOARD_WORKDIR
+                  value: {{ .Values.env.dashboard_workdir }}
+                - name: HUB_HOST
+                  value: hub.{{ .Values.namespace }}
+                - name: HUB_PORT
+                  value: {{ .Values.env.hub_port | quote }}
+                - name: PROXY_PORT
+                  value: {{ .Values.env.proxy_port | quote }}
+                - name: DASHBOARD_PORT
+                  value: {{ .Values.env.dashboard_port | quote }}
+                - name: DASHBOARD_SUPPRESS_EXCEPTIONS
+                  value: {{ .Values.env.dashboard_suppress_exceptions | quote }}
+                - name: CREATE_WHEN_NOT_FOUND
+                  value: {{ .Values.env.create_when_not_found | quote }}
+                - name: DB_TYPE
+                  value: {{ .Values.database.db_type }}
+                - name: DB_HOST
+                  value: {{ .Values.database.db_host }}
+                - name: DB_PORT
+                  value: {{ .Values.database.db_port | quote }}
+                - name: DB_NAME
+                  value: {{ .Values.database.db_name }}
+                - name: DB_USERNAME
+                  value: {{ .Values.database.db_username | quote }}
+                - name: DB_PASSWORD
+                  value: {{ .Values.database.db_password | quote }}
+                - name: LOG_LEVEL
+                  value: {{ .Values.env.log_level | quote }}

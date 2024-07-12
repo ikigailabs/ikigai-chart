@@ -1,0 +1,15 @@
+{{- if .Values.config.enabled }}
+{{- range $namespace, $nmd := .Values.namespaces }}
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: library-config-map
+  namespace: {{ $namespace }}
+data:
+  library_environment.yaml: |-
+{{- range $v := $nmd }}
+{{ ($.Files.Glob (printf "environments/%s.yaml" $v)).AsConfig | indent 4 }}
+{{- end }}
+{{- end }}
+{{- end }}

@@ -1,0 +1,69 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: hub
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.hub }}
+spec:
+  replicas: {{ .Values.replicas.hub }}
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: {{ .Values.app.hub }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.hub }}
+    spec:
+      serviceAccountName: {{ .Values.serviceAccount.hub }}
+      nodeSelector:
+        role: {{ .Values.nodeSelector.role }}
+      containers:
+        - name: hub
+          image: {{ include "dashhub.image.hub.repository" . }}/{{ .Values.image.hub.imageName }}:{{ .Values.image.hub.tag }}
+          env:
+            - name: DASHHUB_LOCATION
+              value: {{ .Values.env.dashhub_location }}
+            - name: DASHHUB_NAMESPACE
+              value: {{ .Values.namespace }}
+            - name: DASHBOARD_WORKDIR
+              value: {{ .Values.env.dashboard_workdir }}
+            - name: DASHHUB_NODE_LABEL
+              value: {{ .Values.app.node }}
+            - name: HUB_HOST
+              value: hub.{{ .Values.namespace }}
+            - name: HUB_PORT
+              value: {{ .Values.env.hub_port | quote }}
+            - name: PROXY_PORT
+              value: {{ .Values.env.proxy_port | quote }}
+            - name: DASHBOARD_PORT
+              value: {{ .Values.env.dashboard_port | quote }}
+            - name: DASHBOARD_SUPPRESS_EXCEPTIONS
+              value: {{ .Values.env.dashboard_suppress_exceptions | quote }}
+            - name: NODE_SUBDOMAIN
+              value: {{ .Values.env.node_subdomain }}
+            - name: CREATE_WHEN_NOT_FOUND
+              value: {{ .Values.env.create_when_not_found | quote }}
+            - name: DB_TYPE
+              value: {{ .Values.database.db_type }}
+            - name: DB_HOST
+              value: {{ .Values.database.db_host }}
+            - name: DB_PORT
+              value: {{ .Values.database.db_port | quote }}
+            - name: DB_NAME
+              value: {{ .Values.database.db_name }}
+            - name: DB_USERNAME
+              value: {{ .Values.database.db_username | quote }}
+            - name: DB_PASSWORD
+              value: {{ .Values.database.db_password | quote }}
+            - name: DASHHUB_NODE_IMAGE
+              value: {{ include "dashhub.image.node.repository" . }}/{{ .Values.image.node.imageName }}:{{ .Values.image.node.tag }}
+            - name: VIRTUAL_ENV_DIRECTORY
+              value: {{ .Values.env.virtual_env_directory }}
+            - name: LOG_LEVEL
+              value: {{ .Values.env.log_level | quote }}
+          ports:
+            - containerPort: {{ .Values.env.hub_port }}
+          resources:
+            {{- toYaml .Values.resources.hub | nindent 12 }}

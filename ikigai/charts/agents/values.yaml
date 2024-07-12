@@ -1,0 +1,8 @@
+database-agent:
+  image:
+    service:
+      tag:
+websocket-agent:
+  image:
+    service:
+      tag: 

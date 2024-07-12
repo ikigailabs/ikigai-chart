@@ -1,0 +1,265 @@
+# Add comments detailing each value
+global:
+  # -- the repository where the Ikigai specific images are hosted
+  ikigai_repository: IMAGE_REPOSITORY
+
+  # -- the aws loadbalancer cert associated with the Ikigai's domain name
+  aws_load_balancer_cert: SSL_CERTIFICATE_ARN
+
+  # -- the identifier from the cluster
+  clusterId: CLUSTER_ID
+
+  # -- the cluster size for this cluster
+  clusterSize: CLUSTER_ID
+
+   # -- optional struct used to pass specific library versions into Ikigai pods
+  ikigai_library_versions:
+    map: {}
+
+   # -- Flag to enable kube environment variables
+  useKubeEnvironment: ""
+
+services:
+  access-service:
+    image:
+      service:
+        # -- The version of access service
+        tag: TAG
+      gateway:
+        # -- The version of access service gateway
+        tag: TAG
+  admin-service:
+    image:
+      service:
+        # -- The version of admin service
+        tag: TAG
+      gateway:
+        # -- The version of admin service gateway
+        tag: TAG
+  component-service:
+    image:
+      service:
+        # -- The version of component service
+        tag: TAG
+      gateway:
+        # -- The version of component service gateway
+        tag: TAG
+  doc-service:
+    image:
+      service:
+        # -- The version of doc service
+        tag: TAG
+      gateway:
+        # -- The version of doc service gateway
+        tag: TAG
+  marketplace-service:
+    image:
+      service:
+        # -- The version of marketplace service
+        tag: TAG
+      gateway:
+        # -- The version of marketplace service gateway
+        tag: TAG
+  search-service:
+    image:
+      service:
+        # -- The version of search service
+        tag: TAG
+      gateway:
+        # -- The version of search service gateway
+        tag: TAG
+  tools-service:
+    image:
+      service:
+        # -- The version of tools service
+        tag: TAG
+      gateway:
+        # -- The version of tools service gateway
+        tag: TAG
+
+
+executors:
+  browse-executor:
+    image:
+      service:
+        # -- The version of the browse executor
+        tag: TAG
+  component-executor:
+    image:
+      service:
+        # -- The version of the component executor
+        tag: TAG
+  deadletter-executor:
+    image:
+      service:
+        # -- The version of the deadletter executor
+        tag: TAG
+  pipeline-executor:
+    image:
+      service:
+        # -- The version of the pipeline executor
+        tag: TAG
+
+provisioners:
+  airbyte-provisioner:
+    image:
+      service:
+        tag: TAG
+  dash-provisioner:
+    image:
+      service:
+        tag: TAG
+  jupyter-provisioner:
+    image:
+      service:
+        tag: TAG
+  ray-provisioner:
+    image:
+      service:
+        tag: TAG
+  superset-provisioner:
+    image:
+      service:
+        tag: TAG
+
+
+scheduled-jobs:
+  scheduled-billing-jobs:
+    image:
+      jobs:
+        tag: TAG
+  scheduled-expiration-jobs:
+    image:
+      jobs:
+        tag: TAG
+  scheduled-monitor-jobs:
+    image:
+      jobs:
+        tag: TAG
+  scheduled-pipeline-jobs:
+    image:
+      jobs:
+        tag: TAG
+  scheduled-process-monitor-jobs:
+    image:
+      jobs:
+        tag: TAG
+  scheduled-remote-job-monitor-jobs:
+    image:
+      jobs:
+        tag: TAG
+  scheduled-staging-clean-up-jobs:
+    image:
+      jobs:
+        tag: TAG
+
+
+agents:
+  database-agent:
+    image:
+      service:
+        tag: TAG
+  websocket-agent:
+    image:
+      service:
+        tag: TAG
+
+
+frontend:
+  pypr-frontend:
+    image:
+      service:
+        tag: TAG
+
+
+logging:
+  fluentd:
+    image:
+      fluentd:
+        tag: TAG
+
+
+environment:
+  config:
+    enabled: false
+  credentials:
+    access_key_id: AWS_ACCESS_KEY_ID
+    secret_access_key: AWS_SECRET_ACCESS_KEY
+    default_region: AWS_DEFAULT_REGION
+
+
+applications:
+  dashhub:
+    database:
+      db_host: DASHHUB_POSTGRES_HOSTNAME
+      db_name: DASHHUB_POSTGRES_DATABASE_NAME
+      db_username: DASHHUB_POSTGRES_USERNAME
+      db_password: DASHHUB_POSTGRES_PASSWORD
+    image:
+      hub:
+        tag: TAG
+      proxy:
+        tag: TAG
+      node:
+        tag: TAG
+      culler:
+        tag: TAG
+
+  dremio:
+    enabled: DREMIO_ENABLED
+    distStorage:
+      aws:
+        bucketName: AWS_DREMIO_BUCKET_NAME
+        credentials:
+          accessKey: AWS_DREMIO_ACCESS_KEY
+          secret: AWS_DREMIO_SECRET_KEY
+    service:
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-ssl-cert: SSL_CERTIFICATE_ARN
+
+  ingress:
+    image:
+      nginx:
+        tag: TAG
+
+  jupyterhub:
+    hub:
+      db:
+        url: JUPYTERHUB_POSTGRES_URL
+        password: JUPYTERHUB_POSTGRES_PASSWORD
+    proxy:
+      service:
+        annotations:
+          service.beta.kubernetes.io/aws-load-balancer-ssl-cert: SSL_CERTIFICATE_ARN
+    singleuser:
+      image:
+        name: JUPYTERHUB_SINGLEUSER_IMAGE_NAME
+
+  kuberay-operator:
+    enabled: KUBERAY_ENABLED
+
+  rabbitmq:
+    enabled: RABBITMQ_ENABLED
+
+  superset:
+    env:
+      dbHost: SUPERSET_POSTGRES_HOSTNAME
+      dbName: SUPERSET_POSTGRES_DATABASE_NAME
+      dbUser: SUPERSET_POSTGRES_USERNAME
+      dbPass: SUPERSET_POSTGRES_PASSWORD
+    image:
+      superset:
+        tag: TAG
+      nginx:
+        tag: TAG
+      redis:
+        tag: TAG
+
+  websocket:
+    image:
+      pushpin:
+        tag: TAG
+      reverseProxy:
+        tag: TAG
+      subscriber:
+        tag: TAG

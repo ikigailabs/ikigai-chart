@@ -1,0 +1,11 @@
+enable_remote_logging: true
+is_local: false
+schedule:
+  dates: None
+user_grouping_size: 100
+fluentd:
+  host: fluentd
+  tag: monitor.snapshot
+  port: 24224
+  service_name: ScheduledMonitorJobs
+timezone: EST

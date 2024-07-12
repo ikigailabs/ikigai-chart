@@ -1,0 +1,72 @@
+# Default values for dash-provisioner.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: provisioners
+
+image:
+  service:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: dash-provisioner-production
+    tag: 
+
+app:
+  service: dash-provisioner
+
+containerPort:
+  service: 16107
+
+replicas:
+  service: 3
+
+environmentVariables:
+  # - name: ACCESS_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: CLOUD_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: DATAOP_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: NETWORK_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: PROTO_LIBRARY_VERSION
+  #   value: 0.2.0
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  service:
+    port: 16107
+
+resources:
+  service:
+    requests:
+      memory: "512Mi"
+      cpu: "0.5"
+    limits:
+      memory: "2Gi"
+      cpu: "1"
+
+nodeSelector:
+  role: service
+
+lifeCycle:
+  preStopPeriod: 300
+
+terminationGracePeriodSeconds: 360
+
+tolerations: []
+
+affinity: {}
+
+clusterId:
+
+clusterSize:
+
+useKubeEnvironment:
+configMountPath: /etc/config

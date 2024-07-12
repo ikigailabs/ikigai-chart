@@ -1,0 +1,4 @@
+enable_remote_logging: true
+is_local: false
+use_staging_db: true
+queue_type: pipeline

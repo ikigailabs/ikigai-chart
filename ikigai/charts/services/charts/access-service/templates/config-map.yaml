@@ -1,0 +1,8 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Chart.Name }}-config-map
+  namespace: {{ .Values.namespace }}
+data:
+  environment.yaml: |-
+{{ .Files.Get "environment.yaml" | indent 4}}

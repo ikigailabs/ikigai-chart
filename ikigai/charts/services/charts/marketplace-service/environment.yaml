@@ -1,0 +1,12 @@
+enable_remote_logging: true
+is_local: false
+use_staging_db: true
+search:
+  enable_custom_facet_search_indexing: false
+  facet:
+    api_endpoint: ""
+    result_count: 6
+pinecone:
+  api_key: ""
+  max_retries: 3
+  backoff_timer: 0.1s

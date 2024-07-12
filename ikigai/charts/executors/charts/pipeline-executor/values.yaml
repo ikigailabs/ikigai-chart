@@ -1,0 +1,80 @@
+# Default values for pipeline-executor.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: executors
+
+image:
+  service:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: pipeline-executor-production
+    tag: 
+
+app:
+  service: pipeline-executor
+
+replicas:
+  service: 12
+
+environmentVariables:
+  # - name: ACCESS_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: CLOUD_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: COMPONENT_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: DATA_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: DATAOP_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: FACET_LIBRARY_VERSION
+  #   value: 0.2.2
+  # - name: MODEL_LIBRARY_VERSION
+  #   value: 0.2.6
+  # - name: MSSA_VERSION
+  #   value: 0.2.0
+  # - name: NETWORK_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: PIPELINE_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: PROTO_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: TOOLS_LIBRARY_VERSION
+  #   value: 0.2.0
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  service:
+    port: 16107
+
+resources:
+  service:
+    requests:
+      memory: "512Mi"
+      cpu: "0.5"
+    limits:
+      memory: "64Gi"
+      cpu: "8"
+
+nodeSelector:
+  role: pipeline
+
+tolerations: []
+
+affinity: {}
+
+clusterId:
+
+size: large
+
+clusterSize:
+
+useKubeEnvironment:
+configMountPath: /etc/config

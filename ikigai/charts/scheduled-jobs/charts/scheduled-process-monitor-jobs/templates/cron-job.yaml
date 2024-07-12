@@ -1,0 +1,55 @@
+apiVersion: batch/v1
+kind: CronJob
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  concurrencyPolicy: Allow
+  schedule: {{ .Values.schedule | quote }}
+  jobTemplate:
+    spec:
+      backoffLimit: 2
+      activeDeadlineSeconds: 600
+      template:
+        spec:
+          serviceAccountName: {{ .Chart.Name }}
+          restartPolicy: Never
+          nodeSelector:
+            role: {{ .Values.nodeSelector.role }}
+          containers:
+          - name: {{ .Chart.Name }}
+            image: {{ include "scheduled-process-monitor-jobs.image.jobs.repository" . }}/{{ .Values.image.jobs.imageName }}:{{ .Values.image.jobs.tag }}
+          imagePullSecrets:
+          - name: harbor-docker-secret
+            env:
+            - name: AWS_ACCESS_KEY_ID
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credential-secret
+                  key: aws-access-key-id
+            - name: AWS_SECRET_ACCESS_KEY
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credential-secret
+                  key: aws-secret-access-key
+            - name: AWS_DEFAULT_REGION
+              valueFrom:
+                secretKeyRef:
+                  name: aws-credential-secret
+                  key: aws-default-region
+            - name: CLUSTER_ID
+              value: {{ .Values.global.clusterId }}
+            - name: USE_KUBE_ENVIRONMENT
+              value: {{ include "scheduled-process-monitor-jobs.useKubeEnvironment" . }}
+            {{ if .Values.environmentVariables }}
+            {{- toYaml .Values.environmentVariables | nindent 12 }}
+            {{ else }}
+            {{- toYaml .Values.global.ikigai_library_versions | nindent 12 }}
+            {{ end }}
+            startupProbe:
+              exec:
+                command:
+                  - cat
+                  - /tmp/ready
+              failureThreshold: 60
+              periodSeconds: 1

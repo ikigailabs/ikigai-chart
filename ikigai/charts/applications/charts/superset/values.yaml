@@ -1,0 +1,105 @@
+# Default values for Superset.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: superset
+
+env:
+  dbHost: SUPERSET_POSTGRES_HOSTNAME
+  redisHost: redis-service.superset
+  dbName: SUPERSET_POSTGRES_DATABASE_NAME
+  dbUser: SUPERSET_POSTGRES_USERNAME
+  dbPass: SUPERSET_POSTGRES_PASSWORD
+  pythonpath: "${PYTHONPATH}:/etc/superset"
+  mapboxApiKey: "pk.eyJ1IjoiaWtpZ2FpbGFicy1kZXYtYWRtaW4iLCJhIjoiY2w4dWVoMHo0MDJ0NDN1cWE5enY1bHR2ZiJ9.MXhIHqMGgqZJmYQZMB5WAw"
+
+image:
+  superset:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: superset-production
+    tag: superset-0.0.72
+  nginx:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: superset-production
+    tag: nginx-0.0.4
+  redis:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: superset-production
+    tag: redis-3.2
+
+app:
+  superset: superset
+  nginx: nginx
+  redis: redis
+
+containerPort:
+  superset: 8088
+  nginx: 7777
+  redis: 6379
+
+replicas:
+  superset: 4
+  nginx: 2
+  redis: 2
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  loadBalancer:
+    port: 443
+  superset:
+    port: 8088
+  nginx:
+    port: 7777
+  redis:
+    port: 6379
+  cert: 
+
+resources:
+  superset:
+    requests:
+      memory: "0.5Gi"
+      cpu: "0.5"
+    limits:
+      memory: "4Gi"
+      cpu: "4"
+  nginx:
+    requests:
+      memory: "0.5Gi"
+      cpu: "0.5"
+    limits:
+      memory: "1Gi"
+      cpu: "1"
+
+autoscaling:
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
+
+nodeSelector:
+  role: service
+
+tolerations: []
+
+affinity: {}
+
+configMap:
+  name: superset-config-map
+  configMapName: superset-config-map
+  mountPath: /etc/superset
+  superset_config:
+    subPath: superset_config.py
+  security:
+    subPath: security.py
+
+clusterId: "first"
+
+clusterSize:

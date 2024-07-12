@@ -1,0 +1,109 @@
+common:
+    vectorizer:
+        tfidf:
+            remote:
+                num_cpus:
+                    get_term_count: 1
+                    get_term_frequency: 1
+                    get_inverse_document_frequency: 1
+                    get_tfidf_score: 1
+                memory:
+                    get_term_count: 11073741824
+                    get_term_frequency: 11073741824
+                    get_inverse_document_frequency: 11073741824
+                    get_tfidf_score: 11073741824
+    matrix_factorization:
+        svd:
+            remote:
+                memory:
+                    get_component_slice: 8589934592
+                    get_u_update: 8589934592
+                    get_v_update: 8589934592
+                    get_loss: 8589934592
+                    get_stacked_data: 8589934592
+                    get_sum_square: 8589934592
+ai_llm:
+    open_ai:
+        api_key: 
+        encoding_type: cl100k_base
+        vectorizer:
+            model: text-embedding-ada-002
+            max_tokens: 8191
+        llm:
+            model: gpt-3.5-turbo-1106
+            max_input_tokens: 3096
+            max_output_tokens: 1000
+    dimension: 1536
+    vectorizer_type: open_ai
+    vectordb_type: faiss
+    llm_type: open_ai
+    prompt:
+        question_answer:
+            base:
+                template_tokens: 30
+                num_template_context: 3
+            two_column:
+                template_tokens: 70
+                num_template_context: 3
+        regression:
+            base:
+                template_tokens: 80
+                num_template_context: 6
+ai_cast:
+    time_limit: 100000
+    max_cores: 16
+    remote:
+        n_partitions: 10
+        preprocess_optimization_threshold: 1000000
+        num_cpus:
+            _perform_experiment: 1
+            _train_models: 1
+            _predict_models: 1
+            _update_models: 1
+        memory:
+            _perform_experiment: 17179869184
+            _train_models: 17179869184
+            _predict_models: 17179869184
+            _update_models: 17179869184
+ai_match:
+    unsupervised:
+        featurizer:
+            remote:
+                max_features: 512
+                n_partitions: 200
+                num_cpus:
+                    create_index: 16
+                    search_index: 16
+                    search_sharded_index: 1
+                memory:
+                    create_index: 8589934592
+                    search_index: 4294967296
+                    search_sharded_index: 4294967296
+                batch_size:
+                    create_index: 100
+                    search_index: 2
+        deep_matcher:
+            remote:
+                num_cpus:
+                    get_indexed_table: 1
+                    add_column: 1
+                    add_suffix: 1
+                    add_right_index: 1
+                    filter_missing_right_index: 1
+                    indentity_method: 1
+                    get_filtered_table: 1
+                    check_empty: 1
+                    create_right_table: 1
+                memory:
+                    get_indexed_table: 68719476736
+                    add_column: 1073741824
+                    add_suffix: 68719476736
+                    add_right_index: 68719476736
+                    filter_missing_right_index: 68719476736
+                    indentity_method: 68719476736
+                    get_filtered_table: 68719476736
+                    check_empty: 2147483648
+                    create_right_table: 68719476736
+ai_predict:
+    time_limit: 3600
+    ensemble_size: 5

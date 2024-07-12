@@ -1,0 +1,6 @@
+enable_remote_logging: true
+is_local: false
+stripe:
+  secret_key: ""
+  success_url: ""
+  cancel_url: ""

@@ -1,0 +1,11 @@
+enable_remote_logging: true
+is_local: false
+connection_ttl: 3600
+internal_websocket_solution:
+  enable: false
+  websocket_endpoint: WEBSOCKET_ENDPOINT
+  publish_endpoint: http://pushpin-service.websocket.svc.cluster.local:5561
+  redis:
+    host: redis-master.redis.svc.cluster.local
+    port: 6379
+    channel: component

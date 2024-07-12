@@ -1,0 +1,38 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  labels:
+    app: {{ .Values.etcdCluster.name }}
+  name: {{ .Values.etcdOperator.name }}
+  namespace: {{ .Values.namespace }}
+spec:
+  replicas: {{ .Values.etcdCluster.size }}
+  selector:
+    matchLabels:
+      app: {{ .Values.etcdCluster.name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.etcdCluster.name }}
+    spec:
+      nodeSelector:
+        role: {{ .Values.nodeSelector.role }}
+      containers:
+      - command:
+        - etcd-operator
+        - --create-crd=False
+        env:
+        - name: MY_POD_NAMESPACE
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.namespace
+        - name: MY_POD_NAME
+          valueFrom:
+            fieldRef:
+              apiVersion: v1
+              fieldPath: metadata.name
+        image: {{ .Values.image.etcdOperator.repository }}:{{ .Values.image.etcdOperator.tag }}
+        imagePullPolicy: IfNotPresent
+        name: {{ .Values.etcdOperator.name }}
+      serviceAccountName: {{ .Values.etcdCluster.name }}-serviceaccount

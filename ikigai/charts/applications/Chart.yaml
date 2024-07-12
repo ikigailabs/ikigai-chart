@@ -1,0 +1,20 @@
+apiVersion: v2
+appVersion: 1.0.0
+version: 0.1.0
+name: applications
+description: A Helm chart for Ikigai applications
+type: application
+
+dependencies:
+  - name: kuberay-operator
+    version: 0.1.0
+    repository: file://charts/kuberay-operator
+    condition: kuberay-operator.enabled
+  - name: dremio
+    version: "2.0.0"
+    repository: file://charts/dremio-app
+    condition: dremio.enabled
+  - name: rabbitmq
+    version: 0.1.0
+    repository: file://charts/rabbitmq
+    condition: rabbitmq.enabled

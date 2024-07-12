@@ -1,0 +1,7 @@
+enable_remote_logging: true
+is_local: false
+anyscale:
+    api_token: ""
+monitor:
+    subset_size: 100
+    max_workers: 10

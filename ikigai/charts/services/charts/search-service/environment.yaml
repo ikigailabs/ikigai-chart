@@ -1,0 +1,24 @@
+enable_remote_logging: true
+is_local: false
+use_staging_db: true
+search:
+  facet:
+    api_endpoint: ""
+    result_count: 6
+    index_type: "faiss"
+pinecone:
+  api_key: ""
+  max_retries: 3
+  backoff_timer: 0.1
+faiss:
+  index_path: "index/index.pkl"
+  index_metadata_path: "index/metadata.pkl"
+command:
+  thresholds:
+    template:
+      exact: 0.7
+      alternative: 0.1
+    facet:
+      exact: 0.3
+  counts:
+    facet: 3

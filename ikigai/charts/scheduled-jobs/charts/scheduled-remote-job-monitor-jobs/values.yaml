@@ -1,0 +1,60 @@
+# Default values for scheduled anyscale job monitoring.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: services
+
+image:
+  jobs:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: scheduled-jobs-production
+    tag: scheduled-remote_job_monitor-0.0.4
+
+environmentVariables:
+  # - name: ACCESS_LIBRARY_VERSION
+  #   value: 0.1.22
+  # - name: CLOUD_LIBRARY_VERSION
+  #   value: 0.1.48
+  # - name: COMPONENT_LIBRARY_VERSION
+  #   value: 0.1.50
+  # - name: DATA_LIBRARY_VERSION
+  #   value: 0.1.41
+  # - name: DATAOP_LIBRARY_VERSION
+  #   value: 0.1.50
+  # - name: ERROR_LIBRARY_VERSION
+  #   value: 0.1.20
+  # - name: FACET_LIBRARY_VERSION
+  #   value: 0.1.85
+  # - name: MODEL_LIBRARY_VERSION
+  #   value: 0.1.51
+  # - name: NETWORK_LIBRARY_VERSION
+  #   value: 0.1.44
+  # - name: PIPELINE_LIBRARY_VERSION
+  #   value: 0.1.43
+  # - name: PROTO_LIBRARY_VERSION
+  #   value: 0.1.39
+  # - name: TOOLS_LIBRARY_VERSION
+  #   value: 0.1.12
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+schedule: '*/10 * * * *'
+
+nodeSelector:
+  role: service
+
+tolerations: []
+
+affinity: {}
+
+clusterId:
+
+location: kubernetes
+
+useKubeEnvironment:

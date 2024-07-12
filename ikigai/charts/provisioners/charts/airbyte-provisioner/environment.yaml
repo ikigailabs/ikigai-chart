@@ -1,0 +1,23 @@
+enable_remote_logging: true
+use_staging_db: false
+is_local: false
+version: v1
+cluster: {}
+resource:
+    server:
+        host: http://airbyte-airbyte-server-svc.airbyte.svc.cluster.local
+        port: 8001
+    airbyte:
+        workspace_id: ""
+        default_destination_id: ""
+        default_source_s3_bucket: IKIGAI_CONNECTOR_BUCKET
+metastore:
+    provisioner:
+        url: postgresql://SERVICE_METADATA_POSTGRES_USERNAME:SERVICE_METADATA_POSTGRES_PASSWORD@SERVICE_METADATA_POSTGRES_HOSTNAME/SERVICE_METADATA_POSTGRES_DATABASE_NAME
+file_store: {}
+lock:
+    etcd_cluster:
+        name: prov-etcd-cluster-customresource
+        namespace: provisioner-common
+        port: 2379
+proxy: {}

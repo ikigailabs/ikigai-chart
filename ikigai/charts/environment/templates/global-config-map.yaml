@@ -1,0 +1,12 @@
+{{- if .Values.config.enabled }}
+{{- range $namespace, $nmd := .Values.namespaces }}
+---
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: global-config-map
+  namespace: {{ $namespace }}
+data:
+{{ ($.Files.Glob "global/access_control.yaml").AsConfig | indent 4 }}
+{{- end }}
+{{- end }}

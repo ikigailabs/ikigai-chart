@@ -1,0 +1,59 @@
+# Default values for pypr-frontend.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: frontend
+
+image:
+  service:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: pypr-frontend-production
+    tag: 
+
+app:
+  service: pypr-frontend
+
+containerPort:
+  service: 80
+
+replicas:
+  service: 2
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  service:
+    port: 443
+  cert:
+
+resources:
+  service:
+    requests:
+      memory: "1Gi"
+      cpu: "1"
+    limits:
+      memory: "4Gi"
+      cpu: "2"
+
+autoscaling:
+  minReplicas: 2
+  maxReplicas: 10
+  targetCPUUtilizationPercentage: 50
+
+nodeSelector:
+  role: service
+
+tolerations: []
+
+affinity: {}
+
+clusterId:
+
+useKubeEnvironment:
+configMountPath: /etc/config

@@ -1,0 +1,105 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Chart.Name }}
+spec:
+  {{ if eq .Values.global.clusterSize "small"}}
+  replicas: 1
+  {{ else }}
+  replicas: {{ .Values.replicas.service }}
+  {{ end }}
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: {{ .Chart.Name }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Chart.Name }}
+    spec:
+      serviceAccountName: {{ .Chart.Name }}-serviceaccount
+      nodeSelector:
+        role: {{ .Values.nodeSelector.role }}
+      terminationGracePeriodSeconds: {{ .Values.terminationGracePeriodSeconds }}
+      containers:
+      - name: {{ .Chart.Name }}
+        image: {{ include "doc-service.image.service.repository" . }}/{{ .Values.image.service.imageName }}:{{ include "doc-service.image.service.tag" . }}
+      imagePullSecrets:
+      - name: harbor-docker-secret
+        env:
+        - name: AWS_ACCESS_KEY_ID
+          valueFrom:
+            secretKeyRef:
+              name: aws-credential-secret
+              key: aws-access-key-id
+        - name: AWS_SECRET_ACCESS_KEY
+          valueFrom:
+            secretKeyRef:
+              name: aws-credential-secret
+              key: aws-secret-access-key
+        - name: AWS_DEFAULT_REGION
+          valueFrom:
+            secretKeyRef:
+              name: aws-credential-secret
+              key: aws-default-region
+        - name: CLUSTER_ID
+          value: {{ .Values.global.clusterId }}
+        - name: USE_KUBE_ENVIRONMENT
+          value: {{ include "doc-service.useKubeEnvironment" . }}
+        {{ if .Values.environmentVariables }}
+        {{- toYaml .Values.environmentVariables | nindent 8 }}
+        {{ else }}
+        {{- toYaml .Values.global.ikigai_library_versions | nindent 8 }}
+        {{ end }}
+        ports:
+        - containerPort: {{ .Values.containerPort.service }}
+        resources:
+          {{- toYaml .Values.resources.service | nindent 10 }}
+        lifecycle:
+          preStop:
+            exec:
+              command:
+                - sleep
+                - {{ .Values.lifeCycle.preStopPeriod | quote }}
+        startupProbe:
+          exec:
+            command:
+              - cat
+              - /tmp/ready
+          failureThreshold: 50
+          periodSeconds: 10
+        volumeMounts:
+          - name: library-environment-file
+            mountPath: {{ .Values.configMountPath }}/library_environment.yaml
+            subPath: library_environment.yaml
+          - name: environment-file
+            mountPath: {{ .Values.configMountPath }}/environment.yaml
+            subPath: environment.yaml
+        livenessProbe:
+          exec:
+            command:
+              - /bin/bash
+              - /usr/ikigailabs/liveness/liveness_probe.sh
+          initialDelaySeconds: 500
+          periodSeconds: 45
+          successThreshold: 1
+          failureThreshold: 2
+      - name: {{ .Chart.Name }}-gateway
+        image: {{ include "component-service.image.gateway.repository" . }}/{{ .Values.image.gateway.imageName }}:{{ include "component-service.image.gateway.tag" . }}
+        ports:
+        - containerPort: {{ .Values.containerPort.gateway }}
+        args:
+          - "bash"
+          - "launch.sh"
+        resources:
+          {{- toYaml .Values.resources.gateway | nindent 10 }}
+      volumes:
+        - name: library-environment-file
+          configMap:
+            name: library-config-map
+        - name: environment-file
+          configMap:
+            name: {{ .Chart.Name }}-config-map

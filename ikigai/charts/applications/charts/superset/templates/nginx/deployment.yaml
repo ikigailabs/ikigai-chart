@@ -1,0 +1,29 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Values.app.nginx }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.nginx }}
+spec:
+  {{ if eq .Values.global.clusterSize "small"}}
+  replicas: 1
+  {{ else }}
+  replicas: {{ .Values.replicas.nginx }}
+  {{ end }}
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: {{ .Values.app.nginx }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.nginx }}
+    spec:
+      containers:
+      - name: {{ .Values.app.nginx }}
+        image: {{ include "superset.image.nginx.repository" . }}/{{ .Values.image.nginx.imageName }}:{{ .Values.image.nginx.tag }}
+        ports:
+        - containerPort: {{ .Values.containerPort.nginx }}
+        resources:
+          {{- toYaml .Values.resources.nginx | nindent 10 }}

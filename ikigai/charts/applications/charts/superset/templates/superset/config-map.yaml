@@ -1,0 +1,10 @@
+kind: ConfigMap
+apiVersion: v1
+metadata:
+  name: {{ .Values.configMap.name }}
+  namespace: {{ .Values.namespace }}
+data:
+  {{ .Values.configMap.superset_config.subPath }}: |-
+{{ .Files.Get "superset_config.py" | indent 4 }}
+  {{ .Values.configMap.security.subPath }}: |-
+{{ .Files.Get "security.py" | indent 4 }}

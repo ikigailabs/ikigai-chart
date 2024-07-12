@@ -1,0 +1,20 @@
+browse-executor:
+  image:
+    service:
+      # -- The version of the browse executor
+      tag: 
+component-executor:
+  image:
+    service:
+      # -- The version of the component executor
+      tag: 
+deadletter-executor:
+  image:
+    service:
+      # -- The version of the deadletter executor
+      tag: 
+pipeline-executor:
+  image:
+    service:
+      # -- The version of the pipeline executor
+      tag: 

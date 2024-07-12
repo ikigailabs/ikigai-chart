@@ -1,0 +1,80 @@
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: airbyte
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: agents
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dashhub
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: datadog
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: dremio
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: executors
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: frontend
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: ingress
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: internal-key-value-store
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: jupyterhub
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: kuberay
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: provisioners
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: redis
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: services
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: superset
+---
+apiVersion: v1
+kind: Namespace
+metadata:
+  name: websocket
+  

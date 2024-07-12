@@ -1,0 +1,84 @@
+# Default values for anyscale-provisioner.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: provisioners
+
+image:
+  service:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: ray-provisioner-production
+    tag: 
+
+app:
+  service: ray-provisioner
+
+containerPort:
+  service: 32335
+
+replicas:
+  service: 5
+
+environmentVariables:
+  # - name: ACCESS_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: CLOUD_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: COMPONENT_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: DATA_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: DATAOP_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: FACET_LIBRARY_VERSION
+  #   value: 0.2.2
+  # - name: MODEL_LIBRARY_VERSION
+  #   value: 0.2.6
+  # - name: NETWORK_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: PIPELINE_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: PROTO_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: TOOLS_LIBRARY_VERSION
+  #   value: 0.2.0
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  service:
+    port: 32335
+  # cert: fill in if necessary
+
+resources:
+  service:
+    requests:
+      memory: "512Mi"
+      cpu: "0.5"
+    limits:
+      memory: "2Gi"
+      cpu: "2"
+
+nodeSelector:
+  role: service
+
+lifeCycle:
+  preStopPeriod: 300
+
+terminationGracePeriodSeconds: 360
+
+tolerations: []
+
+affinity: {}
+
+clusterId:
+
+clusterSize:
+
+useKubeEnvironment:

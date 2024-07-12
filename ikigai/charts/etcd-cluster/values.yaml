@@ -1,0 +1,23 @@
+# Default values for etcd cluster.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: internal-key-value-store
+
+etcdCluster:
+  name: etcd-cluster
+  size: 3
+  version: v3.5.4
+  image:
+    repository: quay.io/coreos/etcd
+
+etcdOperator:
+  name: etcd-operator
+
+image:
+  etcdOperator:
+    repository: ghcr.io/on2itsecurity/etcd-operator
+    pullPolicy: IfNotPresent
+    tag: v1.2.0
+
+nodeSelector:
+  role: service

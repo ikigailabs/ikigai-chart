@@ -1,0 +1,53 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: {{ .Chart.Name }}
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.superset }}
+spec:
+  {{ if eq .Values.global.clusterSize "small"}}
+  replicas: 1
+  {{ else }}
+  replicas: {{ .Values.replicas.superset }}
+  {{ end }}
+  revisionHistoryLimit: 0
+  selector:
+    matchLabels:
+      app: {{ .Values.app.superset }}
+  template:
+    metadata:
+      labels:
+        app: {{ .Values.app.superset }}
+    spec:
+      nodeSelector:
+        role: {{ .Values.nodeSelector.role }}
+      containers:
+      - env:
+        - name: DB_HOST
+          value: {{ .Values.env.dbHost }}
+        - name: REDIS_HOST
+          value: {{ .Values.env.redisHost }}
+        - name: DB_NAME
+          value: {{ .Values.env.dbName }}
+        - name: DB_USER
+          value: {{ .Values.env.dbUser }}
+        - name: DB_PASS
+          value: {{ .Values.env.dbPass }}
+        - name: PYTHONPATH
+          value: {{ .Values.env.pythonpath }}
+        - name: MAPBOX_API_KEY
+          value: {{ .Values.env.mapboxApiKey }}
+        image: {{ include "superset.image.nginx.repository" . }}/{{ .Values.image.superset.imageName }}:{{ .Values.image.superset.tag }}
+        name: {{ .Values.app.superset }}
+        ports:
+          - containerPort: {{ .Values.containerPort.superset }}
+        resources:
+          {{- toYaml .Values.resources.superset | nindent 10 }}
+        volumeMounts:
+          - mountPath: {{ .Values.configMap.mountPath }}
+            name: {{ .Values.configMap.name }}
+      volumes:
+        - name: {{ .Values.configMap.name }}
+          configMap:
+            name: {{ .Values.configMap.configMapName }}

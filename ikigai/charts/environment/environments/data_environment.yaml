@@ -1,0 +1,50 @@
+fivetran:
+  database:
+    type: postgresql
+    host: 
+    port: 5432
+    db_name: 
+    username: 
+    password: 
+  group_id: 
+  key: 
+  redirect_uri: 
+  api_url: 
+enable_fivetran: false
+custom:
+  database:
+    type: postgresql
+    host: 
+    port: 5432
+    db_name: 
+    username: 
+    password: 
+internal:
+  database:
+    type: postgresql
+    host: 
+    port: 5432
+    db_name: 
+    username: 
+    password: 
+  base_url:
+  plaid:
+    client_id: 
+    client_secret: 
+    mode: 
+  quickbooks:
+    client_id: 
+    client_secret: 
+    environment: production
+  onenote:
+    client_id: 
+    client_secret: 
+    tenant_id: 
+hosted:
+  database:
+    type: postgresql
+    host: 
+    port: 5432
+    db_name:
+    username: 
+    password: 

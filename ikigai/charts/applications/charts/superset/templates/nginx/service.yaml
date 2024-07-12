@@ -1,0 +1,40 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy-api
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.nginx }}
+  annotations:
+    service.beta.kubernetes.io/aws-load-balancer-type: nlb
+    service.beta.kubernetes.io/aws-load-balancer-cross-zone-load-balancing-enabled: "true"
+    {{ if .Values.service.cert }}
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: {{ .Values.service.cert }}
+    {{ else }}
+    service.beta.kubernetes.io/aws-load-balancer-ssl-cert: {{ .Values.global.aws_load_balancer_cert }}
+    {{ end }}
+    service.beta.kubernetes.io/aws-load-balancer-ssl-negotiation-policy: ELBSecurityPolicy-TLS-1-1-2017-01
+    service.beta.kubernetes.io/aws-load-balancer-backend-protocol: tcp
+    service.beta.kubernetes.io/aws-load-balancer-ssl-ports: {{ .Values.service.loadBalancer.port | quote }}
+spec:
+  type: LoadBalancer
+  ports:
+    - port: {{ .Values.service.loadBalancer.port }}
+      targetPort: {{ .Values.containerPort.nginx }}
+  selector:
+    app: {{ .Values.app.nginx }}
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: proxy-service
+  namespace: {{ .Values.namespace }}
+  labels:
+    app: {{ .Values.app.nginx }}
+spec:
+  type: ClusterIP
+  ports:
+    - port: {{ .Values.containerPort.nginx }}
+      targetPort: {{ .Values.containerPort.nginx }}
+  selector:
+    app: {{ .Values.app.nginx }}

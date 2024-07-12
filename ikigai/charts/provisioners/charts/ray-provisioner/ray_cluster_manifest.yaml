@@ -1,0 +1,107 @@
+apiVersion: ray.io/v1
+kind: RayCluster
+metadata:
+  labels:
+    app.kubernetes.io/name: kuberay
+    helm.sh/chart: ray-cluster-1.1.0-alpha.0
+    app.kubernetes.io/instance: raycluster
+    app.kubernetes.io/managed-by: Helm
+  name: raycluster-kuberay
+  
+spec:
+  headGroupSpec:
+    serviceType: ClusterIP
+    rayStartParams:
+        dashboard-host: "0.0.0.0"
+    template:
+      spec:
+        imagePullSecrets:
+          []
+        containers:
+          - 
+            volumeMounts:
+            - mountPath: /tmp/ray
+              name: log-volume
+            name: ray-head
+            image: 577436195391.dkr.ecr.us-east-2.amazonaws.com/ray-provisioner-development:cluster-0.0.1
+            imagePullPolicy: IfNotPresent
+            resources:
+              limits:
+                cpu: "4"
+                memory: 8G
+              requests:
+                cpu: "4"
+                memory: 8G
+            securityContext:
+              {}
+            env:
+              []
+        
+        volumes:
+          - emptyDir: {}
+            name: log-volume
+        affinity:
+          {}
+        tolerations:
+          []
+        nodeSelector:
+          {}
+      metadata:
+        annotations:
+          {}
+        labels: 
+          app.kubernetes.io/name: kuberay
+          helm.sh/chart: ray-cluster-1.1.0-alpha.0
+          app.kubernetes.io/instance: raycluster
+          app.kubernetes.io/managed-by: Helm 
+
+  workerGroupSpecs:
+  - rayStartParams:
+      {}
+    replicas: 1
+    minReplicas: 0
+    maxReplicas: 2147483647
+    groupName: workergroup
+    template:
+      spec:
+        imagePullSecrets:
+          []
+        containers:
+          - 
+            volumeMounts:
+            - mountPath: /tmp/ray
+              name: log-volume
+            name: ray-worker
+            image: 577436195391.dkr.ecr.us-east-2.amazonaws.com/ray-provisioner-development:cluster-0.0.1
+            imagePullPolicy: IfNotPresent
+            resources:
+              limits:
+                cpu: "4"
+                memory: 8G
+              requests:
+                cpu: "4"
+                memory: 8G
+            securityContext:
+              {}
+            env:
+              []
+            ports:
+              null
+        
+        volumes:
+          - emptyDir: {}
+            name: log-volume
+        affinity:
+          {}
+        tolerations:
+          []
+        nodeSelector:
+          {}
+      metadata:
+        annotations:
+          {}
+        labels: 
+          app.kubernetes.io/name: kuberay
+          helm.sh/chart: ray-cluster-1.1.0-alpha.0
+          app.kubernetes.io/instance: raycluster
+          app.kubernetes.io/managed-by: Helm

@@ -1,0 +1,6 @@
+enable_remote_logging: true
+is_local: false
+dataset_upload:
+  high_volume_threshold: 15000000000
+queue_type: component
+job_ttl: 3600

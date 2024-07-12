@@ -1,0 +1,13 @@
+internal_pypi:
+  index_url: PYPI_INDEX_URL
+  trusted_host: PYPI_TRUSTED_HOST
+dependency:
+  location: /tmp/dep
+  local: "/tmp/dep"
+  remote: "/mnt/cluster_storage/python_facet_execution"
+tools_service:
+  hostname: TOOLS_SERVICE_HOSTNAME
+  port: 52549
+enable_aillm: false
+python_facet:
+  default_batch_size: 10000

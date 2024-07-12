@@ -1,0 +1,7 @@
+parquet:
+  chunk_size: 100000000
+  sample_size: 1000
+  compression_format: snappy
+azure_object_store:
+  account_name: ""
+  account_key: ""

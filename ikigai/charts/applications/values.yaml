@@ -1,0 +1,50 @@
+dashhub:
+  database:
+    db_host: 
+    db_name: 
+    db_username: 
+    db_password: 
+
+dremio:
+  enabled: 
+  distStorage:
+    aws:
+      bucketName:
+      credentials:
+        accessKey:
+        secret:
+  service:
+    annotations:
+      service.beta.kubernetes.io/aws-load-balancer-ssl-cert: 
+
+ingress:
+  image:
+    nginx:
+      tag: 
+
+jupyterhub:
+  hub:
+    db:
+      url: 
+      password: 
+  proxy:
+    service:
+      annotations:
+        service.beta.kubernetes.io/aws-load-balancer-ssl-cert: 
+  singleuser:
+    image:
+      name: 
+
+kuberay-operator:
+  enabled:
+
+rabbitmq:
+  enabled:
+
+superset:
+  env:
+    dbHost:
+    dbName:
+    dbUser:
+    dbPass:
+

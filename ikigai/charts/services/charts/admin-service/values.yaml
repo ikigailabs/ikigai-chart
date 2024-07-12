@@ -1,0 +1,89 @@
+# Default values for admin-service.
+# This is a YAML-formatted file.
+# Declare variables to be passed into your templates.
+namespace: services
+
+image:
+  service:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: admin-service-production
+    tag:
+  gateway:
+    repository: ""
+    pullPolicy: IfNotPresent
+    imageName: admin-gateway-production
+    tag:
+
+app:
+  service: admin-service
+  gateway: admin-gateway
+
+containerPort:
+  service: 07247
+  gateway: 61903
+
+replicas:
+  service: 3
+  gateway: 3
+
+environmentVariables:
+  # - name: ACCESS_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: CLOUD_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: NETWORK_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: PROTO_LIBRARY_VERSION
+  #   value: 0.2.0
+  # - name: SERVICE_LIBRARY_VERSION
+  #   value: 0.2.0
+
+imagePullSecrets: []
+
+podAnnotations: {}
+
+podSecurityContext: {}
+
+securityContext: {}
+
+service:
+  service:
+    port: 33336
+  gateway:
+    port: 80
+
+resources:
+  service:
+    requests:
+      memory: "0.5Gi"
+      cpu: "0.5"
+    limits:
+      memory: "2Gi"
+      cpu: "1"
+  gateway:
+    requests:
+      memory: "0.5Gi"
+      cpu: "0.5"
+    limits:
+      memory: "2Gi"
+      cpu: "1"
+
+nodeSelector:
+  role: service
+
+lifeCycle:
+  preStopPeriod: 300
+
+terminationGracePeriodSeconds: 360
+
+tolerations: []
+
+affinity: {}
+
+clusterId:
+
+clusterSize:
+useKubeEnvironment:
+
+configMountPath: /etc/config

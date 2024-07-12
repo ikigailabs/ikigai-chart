@@ -1,0 +1,33 @@
+auth:
+  disable_authentication: True
+  internal_authentication: True
+admin:
+  users:
+    - dev@ikigailabs.io
+user_code:
+  rootkit:
+    global_privileges: False
+    fernet_key: ""
+  restriction:
+    cpu:
+      enable: True
+      limit: 86400
+    memory:
+      enable: True
+      limit: 68719476736
+    module_import:
+      enable: True
+      modules:
+        - os
+        - subprocess
+        - boto
+        - boto3
+        - socket
+tools:
+  fernet_key: ""
+enable_tier_access_controller: True
+stripe:
+  secret_key: ""
+  success_url: ""
+  cancel_url: ""
+  pagination_limit: ""

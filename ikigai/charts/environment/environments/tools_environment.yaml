@@ -1,0 +1,3 @@
+staging_path: /tmp/ikigai_tools/
+location:
+  tools_manager: http://tools-service-load-balancer.services:52549

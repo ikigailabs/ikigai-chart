@@ -3,7 +3,28 @@ entries:
   ikigai:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-09-13T13:46:17.344987-04:00"
+    created: "2024-10-17T18:10:14.455367-04:00"
+    dependencies:
+    - name: applications
+      repository: file://charts/applications
+      version: 0.1.0
+    - name: environment
+      repository: file://charts/environment
+      version: 0.1.0
+    - condition: etcd-cluster.enabled
+      name: etcd-cluster
+      repository: file://charts/etcd-cluster
+      version: 0.1.0
+    description: A Helm chart for Ikigai
+    digest: 7e1fe427724d1f9f27396f121d9be0c2b42aa569b593d4bf8e387f2522d393d2
+    name: ikigai
+    type: application
+    urls:
+    - ikigai-0.0.5.tgz
+    version: 0.0.5
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-10-17T18:10:14.425194-04:00"
     dependencies:
     - name: applications
       repository: file://charts/applications
@@ -20,7 +41,7 @@ entries:
     version: 0.0.4
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-09-13T13:46:17.314895-04:00"
+    created: "2024-10-17T18:10:14.398731-04:00"
     dependencies:
     - name: applications
       repository: file://charts/applications
@@ -37,7 +58,7 @@ entries:
     version: 0.0.3
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-09-13T13:46:17.286653-04:00"
+    created: "2024-10-17T18:10:14.370373-04:00"
     dependencies:
     - name: applications
       repository: file://charts/applications
@@ -54,7 +75,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-09-13T13:46:17.257596-04:00"
+    created: "2024-10-17T18:10:14.338347-04:00"
     dependencies:
     - name: applications
       repository: file://charts/applications
@@ -69,4 +90,4 @@ entries:
     urls:
     - ikigai-0.0.1.tgz
     version: 0.0.1
-generated: "2024-09-13T13:46:17.222511-04:00"
+generated: "2024-10-17T18:10:14.300081-04:00"

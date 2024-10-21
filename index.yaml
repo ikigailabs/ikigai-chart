@@ -3,7 +3,28 @@ entries:
   ikigai:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-10-17T18:10:14.455367-04:00"
+    created: "2024-10-21T16:49:14.198769-04:00"
+    dependencies:
+    - name: applications
+      repository: file://charts/applications
+      version: 0.1.0
+    - name: environment
+      repository: file://charts/environment
+      version: 0.1.0
+    - condition: etcd-cluster.enabled
+      name: etcd-cluster
+      repository: file://charts/etcd-cluster
+      version: 0.1.0
+    description: A Helm chart for Ikigai
+    digest: 6a4f175d102d15d676eff5a2187206e16f2863858bb24929a6ff6f2643283a3c
+    name: ikigai
+    type: application
+    urls:
+    - ikigai-0.0.6.tgz
+    version: 0.0.6
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-10-21T16:49:14.174292-04:00"
     dependencies:
     - name: applications
       repository: file://charts/applications
@@ -24,7 +45,7 @@ entries:
     version: 0.0.5
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-10-17T18:10:14.425194-04:00"
+    created: "2024-10-21T16:49:14.147353-04:00"
     dependencies:
     - name: applications
       repository: file://charts/applications
@@ -41,7 +62,7 @@ entries:
     version: 0.0.4
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-10-17T18:10:14.398731-04:00"
+    created: "2024-10-21T16:49:14.121368-04:00"
     dependencies:
     - name: applications
       repository: file://charts/applications
@@ -58,7 +79,7 @@ entries:
     version: 0.0.3
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-10-17T18:10:14.370373-04:00"
+    created: "2024-10-21T16:49:14.089871-04:00"
     dependencies:
     - name: applications
       repository: file://charts/applications
@@ -75,7 +96,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-10-17T18:10:14.338347-04:00"
+    created: "2024-10-21T16:49:14.062732-04:00"
     dependencies:
     - name: applications
       repository: file://charts/applications
@@ -90,4 +111,4 @@ entries:
     urls:
     - ikigai-0.0.1.tgz
     version: 0.0.1
-generated: "2024-10-17T18:10:14.300081-04:00"
+generated: "2024-10-21T16:49:14.027338-04:00"

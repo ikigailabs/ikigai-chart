@@ -3,7 +3,28 @@ entries:
   ikigai:
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-10-21T16:49:14.198769-04:00"
+    created: "2024-10-23T17:24:36.298177-04:00"
+    dependencies:
+    - name: applications
+      repository: file://charts/applications
+      version: 0.1.0
+    - name: environment
+      repository: file://charts/environment
+      version: 0.1.0
+    - condition: etcd-cluster.enabled
+      name: etcd-cluster
+      repository: file://charts/etcd-cluster
+      version: 0.1.0
+    description: A Helm chart for Ikigai
+    digest: 6bead89d354f79718aa367cd05755f485972bd6971903136c431c98caf80d4f4
+    name: ikigai
+    type: application
+    urls:
+    - ikigai-0.0.7.tgz
+    version: 0.0.7
+  - apiVersion: v2
+    appVersion: 1.0.0
+    created: "2024-10-23T17:24:36.269469-04:00"
     dependencies:
     - name: applications
       repository: file://charts/applications
@@ -24,7 +45,7 @@ entries:
     version: 0.0.6
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-10-21T16:49:14.174292-04:00"
+    created: "2024-10-23T17:24:36.236639-04:00"
     dependencies:
     - name: applications
       repository: file://charts/applications
@@ -45,7 +66,7 @@ entries:
     version: 0.0.5
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-10-21T16:49:14.147353-04:00"
+    created: "2024-10-23T17:24:36.204691-04:00"
     dependencies:
     - name: applications
       repository: file://charts/applications
@@ -62,7 +83,7 @@ entries:
     version: 0.0.4
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-10-21T16:49:14.121368-04:00"
+    created: "2024-10-23T17:24:36.169479-04:00"
     dependencies:
     - name: applications
       repository: file://charts/applications
@@ -79,7 +100,7 @@ entries:
     version: 0.0.3
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-10-21T16:49:14.089871-04:00"
+    created: "2024-10-23T17:24:36.135669-04:00"
     dependencies:
     - name: applications
       repository: file://charts/applications
@@ -96,7 +117,7 @@ entries:
     version: 0.0.2
   - apiVersion: v2
     appVersion: 1.0.0
-    created: "2024-10-21T16:49:14.062732-04:00"
+    created: "2024-10-23T17:24:36.098339-04:00"
     dependencies:
     - name: applications
       repository: file://charts/applications
@@ -111,4 +132,4 @@ entries:
     urls:
     - ikigai-0.0.1.tgz
     version: 0.0.1
-generated: "2024-10-21T16:49:14.027338-04:00"
+generated: "2024-10-23T17:24:36.052635-04:00"
